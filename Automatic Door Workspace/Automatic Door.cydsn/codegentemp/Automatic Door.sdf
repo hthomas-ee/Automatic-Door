@@ -1,0 +1,28 @@
+(DELAYFILE
+ (SDFVERSION "IEEE 1497 4.0")
+ (DATE "2020-05-04T04:28:56Z")
+ (DESIGN "Automatic Door")
+ (VENDOR "Cypress Semiconductor")
+ (PROGRAM "PSoC Creator")
+ (VERSION " 4.3")
+ (DIVIDER .)
+ (TIMESCALE 1 ns)
+ (CELL
+  (CELLTYPE "Automatic Door")
+  (INSTANCE *)
+  (DELAY
+   (ABSOLUTE
+    (INTERCONNECT ClockBlock.clk_bus_glb isr_start.clock (0.000:0.000:0.000))
+    (INTERCONNECT ClockBlock.clk_bus_glb isr_stop.clock (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Start\(0\).fb isr_start.interrupt (4.280:4.280:4.280))
+    (INTERCONNECT Pin_Stop\(0\).fb isr_stop.interrupt (4.269:4.269:4.269))
+    (INTERCONNECT Pin_Stepper_Motor\(0\)_PAD Pin_Stepper_Motor\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Stepper_Motor\(1\)_PAD Pin_Stepper_Motor\(1\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Stepper_Motor\(2\)_PAD Pin_Stepper_Motor\(2\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Stepper_Motor\(3\)_PAD Pin_Stepper_Motor\(3\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Start\(0\)_PAD Pin_Start\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_Stop\(0\)_PAD Pin_Stop\(0\).pad_in (0.000:0.000:0.000))
+   )
+  )
+ )
+)
