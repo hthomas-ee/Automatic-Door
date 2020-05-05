@@ -14,8 +14,8 @@
     
     #include <Pin_DC_Motor.h>
     
-    void start_motor_forward(void);
-    void start_motor_backward(void);
-    void stop_motor(void);
+    inline void start_motor_forward(void);
+    inline void start_motor_backward(void);
+    inline void stop_motor(void);
 #endif
 /* [] END OF FILE */
