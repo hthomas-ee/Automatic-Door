@@ -27,7 +27,7 @@
 *  Place your includes, defines and code here 
 ********************************************************************************/
 /* `#START isr_stop_intc` */
-
+    RUNNING = 0;
 /* `#END` */
 
 #ifndef CYINT_IRQ_BASE

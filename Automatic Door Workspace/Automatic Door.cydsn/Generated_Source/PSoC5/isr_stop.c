@@ -27,7 +27,8 @@
 *  Place your includes, defines and code here 
 ********************************************************************************/
 /* `#START isr_stop_intc` */
-    RUNNING = 0;
+    #include <Pin_DC_Motor.h>
+    #include <isr_func.h>
 /* `#END` */
 
 #ifndef CYINT_IRQ_BASE
@@ -165,7 +166,7 @@ CY_ISR(isr_stop_Interrupt)
 
     /*  Place your Interrupt code here. */
     /* `#START isr_stop_Interrupt` */
-
+    stop_motor();
     /* `#END` */
 }
 

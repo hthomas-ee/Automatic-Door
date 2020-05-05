@@ -27,7 +27,9 @@
 *  Place your includes, defines and code here 
 ********************************************************************************/
 /* `#START isr_start_intc` */
-    phase_index = increment_door_forward(phase_index);
+    
+        
+    
 /* `#END` */
 
 #ifndef CYINT_IRQ_BASE
@@ -403,42 +405,6 @@ void isr_start_ClearPending(void)
     *isr_start_INTC_CLR_PD = isr_start__INTC_MASK;
 }
 
-/*******************************************************************************
-* Function Name: increment_stepper_forward
-********************************************************************************
-*
-* Summary:
-*   Moves the stepper motor one increment forward
-*
-* 
-*
-* Parameters:
-*   None
-*
-* Return:
-*   None
-*
-*******************************************************************************/
-uint8_t increment_stepper_forward(uint8_t phase_index_local)
-{
-    if(RUNNING)
-    {
-        uint8_t phase_map[4][8] = {{1, 1, 0, 0, 0, 0, 0, 1},
-                                   {0, 1, 1, 1, 0, 0, 0, 0},
-                                   {0, 0, 0, 1, 1, 1, 0, 0},
-                                   {0, 0, 0, 0, 0, 1, 1, 1}};
-        
-        uint8_t motor_write = 0;
-        
-        
-        for(int i = 0; i < 4; i++) motor_write |= phase_map[i][phase_index_local] << i;
-        //Creating the 4 bit value to write to the 4 pin stepper motor bus by bit shifting
-        //And reading from the phase map
-        Pin_Stepper_Motor_Write(motor_write); //move the motor to the next step
-        phase_index_local++; //increment the phase index
-    }
-    return phase_index_local;
-}                              
 #endif /* End check for removal by optimization */
 
 

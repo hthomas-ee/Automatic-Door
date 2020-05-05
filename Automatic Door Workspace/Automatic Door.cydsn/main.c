@@ -18,8 +18,14 @@ int main(void)
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     
-    phase_index = 0;
-    RUNNING = 0;
+    isr_start_backward_Enable();
+    isr_start_forward_Enable();
+    isr_stop_Enable();
+    
+    isr_start_backward_SetPriority(1);
+    isr_start_forward_SetPriority(1);
+    isr_stop_SetPriority(0);
+    //Set stopping the motoors to be the highest priority ISR
     
     for(;;)
     {

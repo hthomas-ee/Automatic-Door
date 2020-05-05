@@ -18,8 +18,6 @@
 
 #include <cytypes.h>
 #include <cyfitter.h>
-#include <Pin_Stepper_Motor.h>
-#include <global.h>
 
 /* Interrupt Controller API. */
 void isr_start_Start(void);
@@ -40,8 +38,6 @@ void isr_start_Disable(void);
 
 void isr_start_SetPending(void);
 void isr_start_ClearPending(void);
-
-void increment_door_forward(void);
 
 
 /* Interrupt Controller Constants */

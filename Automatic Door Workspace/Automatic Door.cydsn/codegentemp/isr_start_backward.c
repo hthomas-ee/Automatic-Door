@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: isr_start.c  
+* File Name: isr_start_backward.c  
 * Version 1.70
 *
 *  Description:
@@ -18,15 +18,15 @@
 
 #include <cydevice_trm.h>
 #include <CyLib.h>
-#include <isr_start.h>
+#include <isr_start_backward.h>
 #include "cyapicallbacks.h"
 
-#if !defined(isr_start__REMOVED) /* Check for removal by optimization */
+#if !defined(isr_start_backward__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
 *  Place your includes, defines and code here 
 ********************************************************************************/
-/* `#START isr_start_intc` */
+/* `#START isr_start_backward_intc` */
 
 /* `#END` */
 
@@ -42,7 +42,7 @@ CY_ISR_PROTO(IntDefaultHandler);
 
 
 /*******************************************************************************
-* Function Name: isr_start_Start
+* Function Name: isr_start_backward_Start
 ********************************************************************************
 *
 * Summary:
@@ -58,24 +58,24 @@ CY_ISR_PROTO(IntDefaultHandler);
 *   None
 *
 *******************************************************************************/
-void isr_start_Start(void)
+void isr_start_backward_Start(void)
 {
     /* For all we know the interrupt is active. */
-    isr_start_Disable();
+    isr_start_backward_Disable();
 
-    /* Set the ISR to point to the isr_start Interrupt. */
-    isr_start_SetVector(&isr_start_Interrupt);
+    /* Set the ISR to point to the isr_start_backward Interrupt. */
+    isr_start_backward_SetVector(&isr_start_backward_Interrupt);
 
     /* Set the priority. */
-    isr_start_SetPriority((uint8)isr_start_INTC_PRIOR_NUMBER);
+    isr_start_backward_SetPriority((uint8)isr_start_backward_INTC_PRIOR_NUMBER);
 
     /* Enable it. */
-    isr_start_Enable();
+    isr_start_backward_Enable();
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_StartEx
+* Function Name: isr_start_backward_StartEx
 ********************************************************************************
 *
 * Summary:
@@ -101,24 +101,24 @@ void isr_start_Start(void)
 *   None
 *
 *******************************************************************************/
-void isr_start_StartEx(cyisraddress address)
+void isr_start_backward_StartEx(cyisraddress address)
 {
     /* For all we know the interrupt is active. */
-    isr_start_Disable();
+    isr_start_backward_Disable();
 
-    /* Set the ISR to point to the isr_start Interrupt. */
-    isr_start_SetVector(address);
+    /* Set the ISR to point to the isr_start_backward Interrupt. */
+    isr_start_backward_SetVector(address);
 
     /* Set the priority. */
-    isr_start_SetPriority((uint8)isr_start_INTC_PRIOR_NUMBER);
+    isr_start_backward_SetPriority((uint8)isr_start_backward_INTC_PRIOR_NUMBER);
 
     /* Enable it. */
-    isr_start_Enable();
+    isr_start_backward_Enable();
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_Stop
+* Function Name: isr_start_backward_Stop
 ********************************************************************************
 *
 * Summary:
@@ -131,22 +131,22 @@ void isr_start_StartEx(cyisraddress address)
 *   None
 *
 *******************************************************************************/
-void isr_start_Stop(void)
+void isr_start_backward_Stop(void)
 {
     /* Disable this interrupt. */
-    isr_start_Disable();
+    isr_start_backward_Disable();
 
     /* Set the ISR to point to the passive one. */
-    isr_start_SetVector(&IntDefaultHandler);
+    isr_start_backward_SetVector(&IntDefaultHandler);
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_Interrupt
+* Function Name: isr_start_backward_Interrupt
 ********************************************************************************
 *
 * Summary:
-*   The default Interrupt Service Routine for isr_start.
+*   The default Interrupt Service Routine for isr_start_backward.
 *
 *   Add custom code between the coments to keep the next version of this file
 *   from over writting your code.
@@ -157,27 +157,27 @@ void isr_start_Stop(void)
 *   None
 *
 *******************************************************************************/
-CY_ISR(isr_start_Interrupt)
+CY_ISR(isr_start_backward_Interrupt)
 {
-    #ifdef isr_start_INTERRUPT_INTERRUPT_CALLBACK
-        isr_start_Interrupt_InterruptCallback();
-    #endif /* isr_start_INTERRUPT_INTERRUPT_CALLBACK */ 
+    #ifdef isr_start_backward_INTERRUPT_INTERRUPT_CALLBACK
+        isr_start_backward_Interrupt_InterruptCallback();
+    #endif /* isr_start_backward_INTERRUPT_INTERRUPT_CALLBACK */ 
 
     /*  Place your Interrupt code here. */
-    /* `#START isr_start_Interrupt` */
+    /* `#START isr_start_backward_Interrupt` */
 
     /* `#END` */
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_SetVector
+* Function Name: isr_start_backward_SetVector
 ********************************************************************************
 *
 * Summary:
-*   Change the ISR vector for the Interrupt. Note calling isr_start_Start
+*   Change the ISR vector for the Interrupt. Note calling isr_start_backward_Start
 *   will override any effect this method would have had. To set the vector 
-*   before the component has been started use isr_start_StartEx instead.
+*   before the component has been started use isr_start_backward_StartEx instead.
 * 
 *   When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
 *   used to provide consistent definition across compilers:
@@ -197,18 +197,18 @@ CY_ISR(isr_start_Interrupt)
 *   None
 *
 *******************************************************************************/
-void isr_start_SetVector(cyisraddress address)
+void isr_start_backward_SetVector(cyisraddress address)
 {
     cyisraddress * ramVectorTable;
 
     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
 
-    ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start__INTC_NUMBER] = address;
+    ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start_backward__INTC_NUMBER] = address;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_GetVector
+* Function Name: isr_start_backward_GetVector
 ********************************************************************************
 *
 * Summary:
@@ -221,26 +221,26 @@ void isr_start_SetVector(cyisraddress address)
 *   Address of the ISR in the interrupt vector table.
 *
 *******************************************************************************/
-cyisraddress isr_start_GetVector(void)
+cyisraddress isr_start_backward_GetVector(void)
 {
     cyisraddress * ramVectorTable;
 
     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
 
-    return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start__INTC_NUMBER];
+    return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start_backward__INTC_NUMBER];
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_SetPriority
+* Function Name: isr_start_backward_SetPriority
 ********************************************************************************
 *
 * Summary:
 *   Sets the Priority of the Interrupt. 
 *
-*   Note calling isr_start_Start or isr_start_StartEx will 
+*   Note calling isr_start_backward_Start or isr_start_backward_StartEx will 
 *   override any effect this API would have had. This API should only be called
-*   after isr_start_Start or isr_start_StartEx has been called. 
+*   after isr_start_backward_Start or isr_start_backward_StartEx has been called. 
 *   To set the initial priority for the component, use the Design-Wide Resources
 *   Interrupt Editor.
 *
@@ -255,14 +255,14 @@ cyisraddress isr_start_GetVector(void)
 *   None
 *
 *******************************************************************************/
-void isr_start_SetPriority(uint8 priority)
+void isr_start_backward_SetPriority(uint8 priority)
 {
-    *isr_start_INTC_PRIOR = priority << 5;
+    *isr_start_backward_INTC_PRIOR = priority << 5;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_GetPriority
+* Function Name: isr_start_backward_GetPriority
 ********************************************************************************
 *
 * Summary:
@@ -277,19 +277,19 @@ void isr_start_SetPriority(uint8 priority)
 *    PSoC 4: Priority is from 0 to 3.
 *
 *******************************************************************************/
-uint8 isr_start_GetPriority(void)
+uint8 isr_start_backward_GetPriority(void)
 {
     uint8 priority;
 
 
-    priority = *isr_start_INTC_PRIOR >> 5;
+    priority = *isr_start_backward_INTC_PRIOR >> 5;
 
     return priority;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_Enable
+* Function Name: isr_start_backward_Enable
 ********************************************************************************
 *
 * Summary:
@@ -304,15 +304,15 @@ uint8 isr_start_GetPriority(void)
 *   None
 *
 *******************************************************************************/
-void isr_start_Enable(void)
+void isr_start_backward_Enable(void)
 {
     /* Enable the general interrupt. */
-    *isr_start_INTC_SET_EN = isr_start__INTC_MASK;
+    *isr_start_backward_INTC_SET_EN = isr_start_backward__INTC_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_GetState
+* Function Name: isr_start_backward_GetState
 ********************************************************************************
 *
 * Summary:
@@ -325,15 +325,15 @@ void isr_start_Enable(void)
 *   1 if enabled, 0 if disabled.
 *
 *******************************************************************************/
-uint8 isr_start_GetState(void)
+uint8 isr_start_backward_GetState(void)
 {
     /* Get the state of the general interrupt. */
-    return ((*isr_start_INTC_SET_EN & (uint32)isr_start__INTC_MASK) != 0u) ? 1u:0u;
+    return ((*isr_start_backward_INTC_SET_EN & (uint32)isr_start_backward__INTC_MASK) != 0u) ? 1u:0u;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_Disable
+* Function Name: isr_start_backward_Disable
 ********************************************************************************
 *
 * Summary:
@@ -346,15 +346,15 @@ uint8 isr_start_GetState(void)
 *   None
 *
 *******************************************************************************/
-void isr_start_Disable(void)
+void isr_start_backward_Disable(void)
 {
     /* Disable the general interrupt. */
-    *isr_start_INTC_CLR_EN = isr_start__INTC_MASK;
+    *isr_start_backward_INTC_CLR_EN = isr_start_backward__INTC_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_SetPending
+* Function Name: isr_start_backward_SetPending
 ********************************************************************************
 *
 * Summary:
@@ -373,14 +373,14 @@ void isr_start_Disable(void)
 *   interrupts).
 *
 *******************************************************************************/
-void isr_start_SetPending(void)
+void isr_start_backward_SetPending(void)
 {
-    *isr_start_INTC_SET_PD = isr_start__INTC_MASK;
+    *isr_start_backward_INTC_SET_PD = isr_start_backward__INTC_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: isr_start_ClearPending
+* Function Name: isr_start_backward_ClearPending
 ********************************************************************************
 *
 * Summary:
@@ -398,9 +398,9 @@ void isr_start_SetPending(void)
 *   None
 *
 *******************************************************************************/
-void isr_start_ClearPending(void)
+void isr_start_backward_ClearPending(void)
 {
-    *isr_start_INTC_CLR_PD = isr_start__INTC_MASK;
+    *isr_start_backward_INTC_CLR_PD = isr_start_backward__INTC_MASK;
 }
 
 #endif /* End check for removal by optimization */

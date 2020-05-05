@@ -1,0 +1,1951 @@
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"isr_start_forward.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.isr_start_forward_Interrupt,"ax",%progbits
+  20              		.align	2
+  21              		.global	isr_start_forward_Interrupt
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	isr_start_forward_Interrupt, %function
+  25              	isr_start_forward_Interrupt:
+  26              	.LFB3:
+  27              		.file 1 "Generated_Source\\PSoC5\\isr_start_forward.c"
+   1:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/isr_start_forward.c **** * File Name: isr_start_forward.c  
+   3:Generated_Source\PSoC5/isr_start_forward.c **** * Version 1.70
+   4:Generated_Source\PSoC5/isr_start_forward.c **** *
+   5:Generated_Source\PSoC5/isr_start_forward.c **** *  Description:
+   6:Generated_Source\PSoC5/isr_start_forward.c **** *   API for controlling the state of an interrupt.
+   7:Generated_Source\PSoC5/isr_start_forward.c **** *
+   8:Generated_Source\PSoC5/isr_start_forward.c **** *
+   9:Generated_Source\PSoC5/isr_start_forward.c **** *  Note:
+  10:Generated_Source\PSoC5/isr_start_forward.c **** *
+  11:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/isr_start_forward.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/isr_start_forward.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:Generated_Source\PSoC5/isr_start_forward.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:Generated_Source\PSoC5/isr_start_forward.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/isr_start_forward.c **** 
+  18:Generated_Source\PSoC5/isr_start_forward.c **** 
+  19:Generated_Source\PSoC5/isr_start_forward.c **** #include <cydevice_trm.h>
+  20:Generated_Source\PSoC5/isr_start_forward.c **** #include <CyLib.h>
+  21:Generated_Source\PSoC5/isr_start_forward.c **** #include <isr_start_forward.h>
+  22:Generated_Source\PSoC5/isr_start_forward.c **** #include "cyapicallbacks.h"
+  23:Generated_Source\PSoC5/isr_start_forward.c **** 
+  24:Generated_Source\PSoC5/isr_start_forward.c **** #if !defined(isr_start_forward__REMOVED) /* Check for removal by optimization */
+  25:Generated_Source\PSoC5/isr_start_forward.c **** 
+  26:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+  27:Generated_Source\PSoC5/isr_start_forward.c **** *  Place your includes, defines and code here 
+  28:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************/
+  29:Generated_Source\PSoC5/isr_start_forward.c **** /* `#START isr_start_forward_intc` */
+  30:Generated_Source\PSoC5/isr_start_forward.c ****     #include <Pin_DC_Motor.h>
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 2
+
+
+  31:Generated_Source\PSoC5/isr_start_forward.c ****     #include <isr_func.h>
+  32:Generated_Source\PSoC5/isr_start_forward.c **** /* `#END` */
+  33:Generated_Source\PSoC5/isr_start_forward.c **** 
+  34:Generated_Source\PSoC5/isr_start_forward.c **** #ifndef CYINT_IRQ_BASE
+  35:Generated_Source\PSoC5/isr_start_forward.c **** #define CYINT_IRQ_BASE      16
+  36:Generated_Source\PSoC5/isr_start_forward.c **** #endif /* CYINT_IRQ_BASE */
+  37:Generated_Source\PSoC5/isr_start_forward.c **** #ifndef CYINT_VECT_TABLE
+  38:Generated_Source\PSoC5/isr_start_forward.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  39:Generated_Source\PSoC5/isr_start_forward.c **** #endif /* CYINT_VECT_TABLE */
+  40:Generated_Source\PSoC5/isr_start_forward.c **** 
+  41:Generated_Source\PSoC5/isr_start_forward.c **** /* Declared in startup, used to set unused interrupts to. */
+  42:Generated_Source\PSoC5/isr_start_forward.c **** CY_ISR_PROTO(IntDefaultHandler);
+  43:Generated_Source\PSoC5/isr_start_forward.c **** 
+  44:Generated_Source\PSoC5/isr_start_forward.c **** 
+  45:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+  46:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_Start
+  47:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+  48:Generated_Source\PSoC5/isr_start_forward.c **** *
+  49:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+  50:Generated_Source\PSoC5/isr_start_forward.c **** *  Set up the interrupt and enable it. This function disables the interrupt, 
+  51:Generated_Source\PSoC5/isr_start_forward.c **** *  sets the default interrupt vector, sets the priority from the value in the
+  52:Generated_Source\PSoC5/isr_start_forward.c **** *  Design Wide Resources Interrupt Editor, then enables the interrupt to the 
+  53:Generated_Source\PSoC5/isr_start_forward.c **** *  interrupt controller.
+  54:Generated_Source\PSoC5/isr_start_forward.c **** *
+  55:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:  
+  56:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+  57:Generated_Source\PSoC5/isr_start_forward.c **** *
+  58:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+  59:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+  60:Generated_Source\PSoC5/isr_start_forward.c **** *
+  61:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+  62:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_Start(void)
+  63:Generated_Source\PSoC5/isr_start_forward.c **** {
+  64:Generated_Source\PSoC5/isr_start_forward.c ****     /* For all we know the interrupt is active. */
+  65:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_Disable();
+  66:Generated_Source\PSoC5/isr_start_forward.c **** 
+  67:Generated_Source\PSoC5/isr_start_forward.c ****     /* Set the ISR to point to the isr_start_forward Interrupt. */
+  68:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_SetVector(&isr_start_forward_Interrupt);
+  69:Generated_Source\PSoC5/isr_start_forward.c **** 
+  70:Generated_Source\PSoC5/isr_start_forward.c ****     /* Set the priority. */
+  71:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_SetPriority((uint8)isr_start_forward_INTC_PRIOR_NUMBER);
+  72:Generated_Source\PSoC5/isr_start_forward.c **** 
+  73:Generated_Source\PSoC5/isr_start_forward.c ****     /* Enable it. */
+  74:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_Enable();
+  75:Generated_Source\PSoC5/isr_start_forward.c **** }
+  76:Generated_Source\PSoC5/isr_start_forward.c **** 
+  77:Generated_Source\PSoC5/isr_start_forward.c **** 
+  78:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+  79:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_StartEx
+  80:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+  81:Generated_Source\PSoC5/isr_start_forward.c **** *
+  82:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+  83:Generated_Source\PSoC5/isr_start_forward.c **** *  Sets up the interrupt and enables it. This function disables the interrupt,
+  84:Generated_Source\PSoC5/isr_start_forward.c **** *  sets the interrupt vector based on the address passed in, sets the priority 
+  85:Generated_Source\PSoC5/isr_start_forward.c **** *  from the value in the Design Wide Resources Interrupt Editor, then enables 
+  86:Generated_Source\PSoC5/isr_start_forward.c **** *  the interrupt to the interrupt controller.
+  87:Generated_Source\PSoC5/isr_start_forward.c **** *  
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 3
+
+
+  88:Generated_Source\PSoC5/isr_start_forward.c **** *  When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+  89:Generated_Source\PSoC5/isr_start_forward.c **** *  used to provide consistent definition across compilers:
+  90:Generated_Source\PSoC5/isr_start_forward.c **** *  
+  91:Generated_Source\PSoC5/isr_start_forward.c **** *  Function definition example:
+  92:Generated_Source\PSoC5/isr_start_forward.c **** *   CY_ISR(MyISR)
+  93:Generated_Source\PSoC5/isr_start_forward.c **** *   {
+  94:Generated_Source\PSoC5/isr_start_forward.c **** *   }
+  95:Generated_Source\PSoC5/isr_start_forward.c **** *   Function prototype example:
+  96:Generated_Source\PSoC5/isr_start_forward.c **** *   CY_ISR_PROTO(MyISR);
+  97:Generated_Source\PSoC5/isr_start_forward.c **** *
+  98:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:  
+  99:Generated_Source\PSoC5/isr_start_forward.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 100:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 101:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 102:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 103:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 104:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 105:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_StartEx(cyisraddress address)
+ 106:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 107:Generated_Source\PSoC5/isr_start_forward.c ****     /* For all we know the interrupt is active. */
+ 108:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_Disable();
+ 109:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 110:Generated_Source\PSoC5/isr_start_forward.c ****     /* Set the ISR to point to the isr_start_forward Interrupt. */
+ 111:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_SetVector(address);
+ 112:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 113:Generated_Source\PSoC5/isr_start_forward.c ****     /* Set the priority. */
+ 114:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_SetPriority((uint8)isr_start_forward_INTC_PRIOR_NUMBER);
+ 115:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 116:Generated_Source\PSoC5/isr_start_forward.c ****     /* Enable it. */
+ 117:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_Enable();
+ 118:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 119:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 120:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 121:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 122:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_Stop
+ 123:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 124:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 125:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 126:Generated_Source\PSoC5/isr_start_forward.c **** *   Disables and removes the interrupt.
+ 127:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 128:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:  
+ 129:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 130:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 131:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 132:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 133:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 134:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 135:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_Stop(void)
+ 136:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 137:Generated_Source\PSoC5/isr_start_forward.c ****     /* Disable this interrupt. */
+ 138:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_Disable();
+ 139:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 140:Generated_Source\PSoC5/isr_start_forward.c ****     /* Set the ISR to point to the passive one. */
+ 141:Generated_Source\PSoC5/isr_start_forward.c ****     isr_start_forward_SetVector(&IntDefaultHandler);
+ 142:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 143:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 144:Generated_Source\PSoC5/isr_start_forward.c **** 
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 4
+
+
+ 145:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 146:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_Interrupt
+ 147:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 148:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 149:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 150:Generated_Source\PSoC5/isr_start_forward.c **** *   The default Interrupt Service Routine for isr_start_forward.
+ 151:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 152:Generated_Source\PSoC5/isr_start_forward.c **** *   Add custom code between the coments to keep the next version of this file
+ 153:Generated_Source\PSoC5/isr_start_forward.c **** *   from over writting your code.
+ 154:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 155:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:  
+ 156:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 157:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 158:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 159:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 160:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 161:Generated_Source\PSoC5/isr_start_forward.c **** CY_ISR(isr_start_forward_Interrupt)
+ 162:Generated_Source\PSoC5/isr_start_forward.c **** {
+  28              		.loc 1 162 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+ 163:Generated_Source\PSoC5/isr_start_forward.c ****     #ifdef isr_start_forward_INTERRUPT_INTERRUPT_CALLBACK
+ 164:Generated_Source\PSoC5/isr_start_forward.c ****         isr_start_forward_Interrupt_InterruptCallback();
+ 165:Generated_Source\PSoC5/isr_start_forward.c ****     #endif /* isr_start_forward_INTERRUPT_INTERRUPT_CALLBACK */ 
+ 166:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 167:Generated_Source\PSoC5/isr_start_forward.c ****     /*  Place your Interrupt code here. */
+ 168:Generated_Source\PSoC5/isr_start_forward.c ****     /* `#START isr_start_forward_Interrupt` */
+ 169:Generated_Source\PSoC5/isr_start_forward.c ****     CyDelay(100);
+  36              		.loc 1 169 0
+  37 0002 6420     		movs	r0, #100
+  38 0004 FFF7FEFF 		bl	CyDelay
+  39              	.LVL0:
+ 170:Generated_Source\PSoC5/isr_start_forward.c ****     start_motor_forward();
+  40              		.loc 1 170 0
+  41 0008 FFF7FEFF 		bl	start_motor_forward
+  42              	.LVL1:
+  43 000c 08BD     		pop	{r3, pc}
+  44              		.cfi_endproc
+  45              	.LFE3:
+  46              		.size	isr_start_forward_Interrupt, .-isr_start_forward_Interrupt
+  47 000e 00BF     		.section	.text.isr_start_forward_SetVector,"ax",%progbits
+  48              		.align	2
+  49              		.global	isr_start_forward_SetVector
+  50              		.thumb
+  51              		.thumb_func
+  52              		.type	isr_start_forward_SetVector, %function
+  53              	isr_start_forward_SetVector:
+  54              	.LFB4:
+ 171:Generated_Source\PSoC5/isr_start_forward.c ****     /* `#END` */
+ 172:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 173:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 174:Generated_Source\PSoC5/isr_start_forward.c **** 
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 5
+
+
+ 175:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 176:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_SetVector
+ 177:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 178:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 179:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 180:Generated_Source\PSoC5/isr_start_forward.c **** *   Change the ISR vector for the Interrupt. Note calling isr_start_forward_Start
+ 181:Generated_Source\PSoC5/isr_start_forward.c **** *   will override any effect this method would have had. To set the vector 
+ 182:Generated_Source\PSoC5/isr_start_forward.c **** *   before the component has been started use isr_start_forward_StartEx instead.
+ 183:Generated_Source\PSoC5/isr_start_forward.c **** * 
+ 184:Generated_Source\PSoC5/isr_start_forward.c **** *   When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+ 185:Generated_Source\PSoC5/isr_start_forward.c **** *   used to provide consistent definition across compilers:
+ 186:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 187:Generated_Source\PSoC5/isr_start_forward.c **** *   Function definition example:
+ 188:Generated_Source\PSoC5/isr_start_forward.c **** *   CY_ISR(MyISR)
+ 189:Generated_Source\PSoC5/isr_start_forward.c **** *   {
+ 190:Generated_Source\PSoC5/isr_start_forward.c **** *   }
+ 191:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 192:Generated_Source\PSoC5/isr_start_forward.c **** *   Function prototype example:
+ 193:Generated_Source\PSoC5/isr_start_forward.c **** *     CY_ISR_PROTO(MyISR);
+ 194:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 195:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 196:Generated_Source\PSoC5/isr_start_forward.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 197:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 198:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 199:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 200:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 201:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 202:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_SetVector(cyisraddress address)
+ 203:Generated_Source\PSoC5/isr_start_forward.c **** {
+  55              		.loc 1 203 0
+  56              		.cfi_startproc
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60              	.LVL2:
+ 204:Generated_Source\PSoC5/isr_start_forward.c ****     cyisraddress * ramVectorTable;
+ 205:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 206:Generated_Source\PSoC5/isr_start_forward.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  61              		.loc 1 206 0
+  62 0000 014B     		ldr	r3, .L4
+  63 0002 1B68     		ldr	r3, [r3]
+  64              	.LVL3:
+ 207:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 208:Generated_Source\PSoC5/isr_start_forward.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start_forward__INTC_NUMBER] = address;
+  65              		.loc 1 208 0
+  66 0004 5864     		str	r0, [r3, #68]
+  67 0006 7047     		bx	lr
+  68              	.L5:
+  69              		.align	2
+  70              	.L4:
+  71 0008 08ED00E0 		.word	-536810232
+  72              		.cfi_endproc
+  73              	.LFE4:
+  74              		.size	isr_start_forward_SetVector, .-isr_start_forward_SetVector
+  75              		.section	.text.isr_start_forward_GetVector,"ax",%progbits
+  76              		.align	2
+  77              		.global	isr_start_forward_GetVector
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 6
+
+
+  78              		.thumb
+  79              		.thumb_func
+  80              		.type	isr_start_forward_GetVector, %function
+  81              	isr_start_forward_GetVector:
+  82              	.LFB5:
+ 209:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 210:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 211:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 212:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 213:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_GetVector
+ 214:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 215:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 216:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 217:Generated_Source\PSoC5/isr_start_forward.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 218:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 219:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 220:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 221:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 222:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 223:Generated_Source\PSoC5/isr_start_forward.c **** *   Address of the ISR in the interrupt vector table.
+ 224:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 225:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 226:Generated_Source\PSoC5/isr_start_forward.c **** cyisraddress isr_start_forward_GetVector(void)
+ 227:Generated_Source\PSoC5/isr_start_forward.c **** {
+  83              		.loc 1 227 0
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              		@ link register save eliminated.
+ 228:Generated_Source\PSoC5/isr_start_forward.c ****     cyisraddress * ramVectorTable;
+ 229:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 230:Generated_Source\PSoC5/isr_start_forward.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  88              		.loc 1 230 0
+  89 0000 014B     		ldr	r3, .L7
+  90 0002 1B68     		ldr	r3, [r3]
+  91              	.LVL4:
+ 231:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 232:Generated_Source\PSoC5/isr_start_forward.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_start_forward__INTC_NUMBER];
+ 233:Generated_Source\PSoC5/isr_start_forward.c **** }
+  92              		.loc 1 233 0
+  93 0004 586C     		ldr	r0, [r3, #68]
+  94 0006 7047     		bx	lr
+  95              	.L8:
+  96              		.align	2
+  97              	.L7:
+  98 0008 08ED00E0 		.word	-536810232
+  99              		.cfi_endproc
+ 100              	.LFE5:
+ 101              		.size	isr_start_forward_GetVector, .-isr_start_forward_GetVector
+ 102              		.section	.text.isr_start_forward_SetPriority,"ax",%progbits
+ 103              		.align	2
+ 104              		.global	isr_start_forward_SetPriority
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.type	isr_start_forward_SetPriority, %function
+ 108              	isr_start_forward_SetPriority:
+ 109              	.LFB6:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 7
+
+
+ 234:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 235:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 236:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 237:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_SetPriority
+ 238:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 239:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 240:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 241:Generated_Source\PSoC5/isr_start_forward.c **** *   Sets the Priority of the Interrupt. 
+ 242:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 243:Generated_Source\PSoC5/isr_start_forward.c **** *   Note calling isr_start_forward_Start or isr_start_forward_StartEx will 
+ 244:Generated_Source\PSoC5/isr_start_forward.c **** *   override any effect this API would have had. This API should only be called
+ 245:Generated_Source\PSoC5/isr_start_forward.c **** *   after isr_start_forward_Start or isr_start_forward_StartEx has been called. 
+ 246:Generated_Source\PSoC5/isr_start_forward.c **** *   To set the initial priority for the component, use the Design-Wide Resources
+ 247:Generated_Source\PSoC5/isr_start_forward.c **** *   Interrupt Editor.
+ 248:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 249:Generated_Source\PSoC5/isr_start_forward.c **** *   Note This API has no effect on Non-maskable interrupt NMI).
+ 250:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 251:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 252:Generated_Source\PSoC5/isr_start_forward.c **** *   priority: Priority of the interrupt, 0 being the highest priority
+ 253:Generated_Source\PSoC5/isr_start_forward.c **** *             PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 254:Generated_Source\PSoC5/isr_start_forward.c **** *             PSoC 4: Priority is from 0 to 3.
+ 255:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 256:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 257:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 258:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 259:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 260:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_SetPriority(uint8 priority)
+ 261:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 110              		.loc 1 261 0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115              	.LVL5:
+ 262:Generated_Source\PSoC5/isr_start_forward.c ****     *isr_start_forward_INTC_PRIOR = priority << 5;
+ 116              		.loc 1 262 0
+ 117 0000 4001     		lsls	r0, r0, #5
+ 118              	.LVL6:
+ 119 0002 C0B2     		uxtb	r0, r0
+ 120 0004 014B     		ldr	r3, .L10
+ 121 0006 1870     		strb	r0, [r3]
+ 122 0008 7047     		bx	lr
+ 123              	.L11:
+ 124 000a 00BF     		.align	2
+ 125              	.L10:
+ 126 000c 01E400E0 		.word	-536812543
+ 127              		.cfi_endproc
+ 128              	.LFE6:
+ 129              		.size	isr_start_forward_SetPriority, .-isr_start_forward_SetPriority
+ 130              		.section	.text.isr_start_forward_GetPriority,"ax",%progbits
+ 131              		.align	2
+ 132              		.global	isr_start_forward_GetPriority
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.type	isr_start_forward_GetPriority, %function
+ 136              	isr_start_forward_GetPriority:
+ 137              	.LFB7:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 8
+
+
+ 263:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 264:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 265:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 266:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 267:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_GetPriority
+ 268:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 269:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 270:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 271:Generated_Source\PSoC5/isr_start_forward.c **** *   Gets the Priority of the Interrupt.
+ 272:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 273:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 274:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 275:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 276:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 277:Generated_Source\PSoC5/isr_start_forward.c **** *   Priority of the interrupt, 0 being the highest priority
+ 278:Generated_Source\PSoC5/isr_start_forward.c **** *    PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 279:Generated_Source\PSoC5/isr_start_forward.c **** *    PSoC 4: Priority is from 0 to 3.
+ 280:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 281:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 282:Generated_Source\PSoC5/isr_start_forward.c **** uint8 isr_start_forward_GetPriority(void)
+ 283:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 138              		.loc 1 283 0
+ 139              		.cfi_startproc
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142              		@ link register save eliminated.
+ 284:Generated_Source\PSoC5/isr_start_forward.c ****     uint8 priority;
+ 285:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 286:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 287:Generated_Source\PSoC5/isr_start_forward.c ****     priority = *isr_start_forward_INTC_PRIOR >> 5;
+ 143              		.loc 1 287 0
+ 144 0000 014B     		ldr	r3, .L13
+ 145 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 146              	.LVL7:
+ 288:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 289:Generated_Source\PSoC5/isr_start_forward.c ****     return priority;
+ 290:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 147              		.loc 1 290 0
+ 148 0004 4009     		lsrs	r0, r0, #5
+ 149              	.LVL8:
+ 150 0006 7047     		bx	lr
+ 151              	.L14:
+ 152              		.align	2
+ 153              	.L13:
+ 154 0008 01E400E0 		.word	-536812543
+ 155              		.cfi_endproc
+ 156              	.LFE7:
+ 157              		.size	isr_start_forward_GetPriority, .-isr_start_forward_GetPriority
+ 158              		.section	.text.isr_start_forward_Enable,"ax",%progbits
+ 159              		.align	2
+ 160              		.global	isr_start_forward_Enable
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.type	isr_start_forward_Enable, %function
+ 164              	isr_start_forward_Enable:
+ 165              	.LFB8:
+ 291:Generated_Source\PSoC5/isr_start_forward.c **** 
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 9
+
+
+ 292:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 293:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 294:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_Enable
+ 295:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 296:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 297:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 298:Generated_Source\PSoC5/isr_start_forward.c **** *   Enables the interrupt to the interrupt controller. Do not call this function
+ 299:Generated_Source\PSoC5/isr_start_forward.c **** *   unless ISR_Start() has been called or the functionality of the ISR_Start() 
+ 300:Generated_Source\PSoC5/isr_start_forward.c **** *   function, which sets the vector and the priority, has been called.
+ 301:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 302:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 303:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 304:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 305:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 306:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 307:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 308:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 309:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_Enable(void)
+ 310:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 166              		.loc 1 310 0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170              		@ link register save eliminated.
+ 311:Generated_Source\PSoC5/isr_start_forward.c ****     /* Enable the general interrupt. */
+ 312:Generated_Source\PSoC5/isr_start_forward.c ****     *isr_start_forward_INTC_SET_EN = isr_start_forward__INTC_MASK;
+ 171              		.loc 1 312 0
+ 172 0000 0222     		movs	r2, #2
+ 173 0002 014B     		ldr	r3, .L16
+ 174 0004 1A60     		str	r2, [r3]
+ 175 0006 7047     		bx	lr
+ 176              	.L17:
+ 177              		.align	2
+ 178              	.L16:
+ 179 0008 00E100E0 		.word	-536813312
+ 180              		.cfi_endproc
+ 181              	.LFE8:
+ 182              		.size	isr_start_forward_Enable, .-isr_start_forward_Enable
+ 183              		.section	.text.isr_start_forward_GetState,"ax",%progbits
+ 184              		.align	2
+ 185              		.global	isr_start_forward_GetState
+ 186              		.thumb
+ 187              		.thumb_func
+ 188              		.type	isr_start_forward_GetState, %function
+ 189              	isr_start_forward_GetState:
+ 190              	.LFB9:
+ 313:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 314:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 315:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 316:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 317:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_GetState
+ 318:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 319:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 320:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 321:Generated_Source\PSoC5/isr_start_forward.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 322:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 323:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 10
+
+
+ 324:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 325:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 326:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 327:Generated_Source\PSoC5/isr_start_forward.c **** *   1 if enabled, 0 if disabled.
+ 328:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 329:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 330:Generated_Source\PSoC5/isr_start_forward.c **** uint8 isr_start_forward_GetState(void)
+ 331:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 191              		.loc 1 331 0
+ 192              		.cfi_startproc
+ 193              		@ args = 0, pretend = 0, frame = 0
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 195              		@ link register save eliminated.
+ 332:Generated_Source\PSoC5/isr_start_forward.c ****     /* Get the state of the general interrupt. */
+ 333:Generated_Source\PSoC5/isr_start_forward.c ****     return ((*isr_start_forward_INTC_SET_EN & (uint32)isr_start_forward__INTC_MASK) != 0u) ? 1u:0u;
+ 196              		.loc 1 333 0
+ 197 0000 044B     		ldr	r3, .L21
+ 198 0002 1B68     		ldr	r3, [r3]
+ 199 0004 13F0020F 		tst	r3, #2
+ 200 0008 01D0     		beq	.L20
+ 201 000a 0120     		movs	r0, #1
+ 202 000c 7047     		bx	lr
+ 203              	.L20:
+ 204 000e 0020     		movs	r0, #0
+ 334:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 205              		.loc 1 334 0
+ 206 0010 7047     		bx	lr
+ 207              	.L22:
+ 208 0012 00BF     		.align	2
+ 209              	.L21:
+ 210 0014 00E100E0 		.word	-536813312
+ 211              		.cfi_endproc
+ 212              	.LFE9:
+ 213              		.size	isr_start_forward_GetState, .-isr_start_forward_GetState
+ 214              		.section	.text.isr_start_forward_Disable,"ax",%progbits
+ 215              		.align	2
+ 216              		.global	isr_start_forward_Disable
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.type	isr_start_forward_Disable, %function
+ 220              	isr_start_forward_Disable:
+ 221              	.LFB10:
+ 335:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 336:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 337:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 338:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_Disable
+ 339:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 340:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 341:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 342:Generated_Source\PSoC5/isr_start_forward.c **** *   Disables the Interrupt in the interrupt controller.
+ 343:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 344:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 345:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 346:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 347:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 348:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 349:Generated_Source\PSoC5/isr_start_forward.c **** *
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 11
+
+
+ 350:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 351:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_Disable(void)
+ 352:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 222              		.loc 1 352 0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 353:Generated_Source\PSoC5/isr_start_forward.c ****     /* Disable the general interrupt. */
+ 354:Generated_Source\PSoC5/isr_start_forward.c ****     *isr_start_forward_INTC_CLR_EN = isr_start_forward__INTC_MASK;
+ 227              		.loc 1 354 0
+ 228 0000 0222     		movs	r2, #2
+ 229 0002 014B     		ldr	r3, .L24
+ 230 0004 1A60     		str	r2, [r3]
+ 231 0006 7047     		bx	lr
+ 232              	.L25:
+ 233              		.align	2
+ 234              	.L24:
+ 235 0008 80E100E0 		.word	-536813184
+ 236              		.cfi_endproc
+ 237              	.LFE10:
+ 238              		.size	isr_start_forward_Disable, .-isr_start_forward_Disable
+ 239              		.section	.text.isr_start_forward_Start,"ax",%progbits
+ 240              		.align	2
+ 241              		.global	isr_start_forward_Start
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.type	isr_start_forward_Start, %function
+ 245              	isr_start_forward_Start:
+ 246              	.LFB0:
+  63:Generated_Source\PSoC5/isr_start_forward.c ****     /* For all we know the interrupt is active. */
+ 247              		.loc 1 63 0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 0
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 251 0000 08B5     		push	{r3, lr}
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 3, -8
+ 254              		.cfi_offset 14, -4
+  65:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 255              		.loc 1 65 0
+ 256 0002 FFF7FEFF 		bl	isr_start_forward_Disable
+ 257              	.LVL9:
+  68:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 258              		.loc 1 68 0
+ 259 0006 0448     		ldr	r0, .L28
+ 260 0008 FFF7FEFF 		bl	isr_start_forward_SetVector
+ 261              	.LVL10:
+  71:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 262              		.loc 1 71 0
+ 263 000c 0720     		movs	r0, #7
+ 264 000e FFF7FEFF 		bl	isr_start_forward_SetPriority
+ 265              	.LVL11:
+  74:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 266              		.loc 1 74 0
+ 267 0012 FFF7FEFF 		bl	isr_start_forward_Enable
+ 268              	.LVL12:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 12
+
+
+ 269 0016 08BD     		pop	{r3, pc}
+ 270              	.L29:
+ 271              		.align	2
+ 272              	.L28:
+ 273 0018 00000000 		.word	isr_start_forward_Interrupt
+ 274              		.cfi_endproc
+ 275              	.LFE0:
+ 276              		.size	isr_start_forward_Start, .-isr_start_forward_Start
+ 277              		.section	.text.isr_start_forward_StartEx,"ax",%progbits
+ 278              		.align	2
+ 279              		.global	isr_start_forward_StartEx
+ 280              		.thumb
+ 281              		.thumb_func
+ 282              		.type	isr_start_forward_StartEx, %function
+ 283              	isr_start_forward_StartEx:
+ 284              	.LFB1:
+ 106:Generated_Source\PSoC5/isr_start_forward.c ****     /* For all we know the interrupt is active. */
+ 285              		.loc 1 106 0
+ 286              		.cfi_startproc
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 0, uses_anonymous_args = 0
+ 289              	.LVL13:
+ 290 0000 10B5     		push	{r4, lr}
+ 291              		.cfi_def_cfa_offset 8
+ 292              		.cfi_offset 4, -8
+ 293              		.cfi_offset 14, -4
+ 294 0002 0446     		mov	r4, r0
+ 108:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 295              		.loc 1 108 0
+ 296 0004 FFF7FEFF 		bl	isr_start_forward_Disable
+ 297              	.LVL14:
+ 111:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 298              		.loc 1 111 0
+ 299 0008 2046     		mov	r0, r4
+ 300 000a FFF7FEFF 		bl	isr_start_forward_SetVector
+ 301              	.LVL15:
+ 114:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 302              		.loc 1 114 0
+ 303 000e 0720     		movs	r0, #7
+ 304 0010 FFF7FEFF 		bl	isr_start_forward_SetPriority
+ 305              	.LVL16:
+ 117:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 306              		.loc 1 117 0
+ 307 0014 FFF7FEFF 		bl	isr_start_forward_Enable
+ 308              	.LVL17:
+ 309 0018 10BD     		pop	{r4, pc}
+ 310              		.cfi_endproc
+ 311              	.LFE1:
+ 312              		.size	isr_start_forward_StartEx, .-isr_start_forward_StartEx
+ 313 001a 00BF     		.section	.text.isr_start_forward_Stop,"ax",%progbits
+ 314              		.align	2
+ 315              		.global	isr_start_forward_Stop
+ 316              		.thumb
+ 317              		.thumb_func
+ 318              		.type	isr_start_forward_Stop, %function
+ 319              	isr_start_forward_Stop:
+ 320              	.LFB2:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 13
+
+
+ 136:Generated_Source\PSoC5/isr_start_forward.c ****     /* Disable this interrupt. */
+ 321              		.loc 1 136 0
+ 322              		.cfi_startproc
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 325 0000 08B5     		push	{r3, lr}
+ 326              		.cfi_def_cfa_offset 8
+ 327              		.cfi_offset 3, -8
+ 328              		.cfi_offset 14, -4
+ 138:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 329              		.loc 1 138 0
+ 330 0002 FFF7FEFF 		bl	isr_start_forward_Disable
+ 331              	.LVL18:
+ 141:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 332              		.loc 1 141 0
+ 333 0006 0248     		ldr	r0, .L34
+ 334 0008 FFF7FEFF 		bl	isr_start_forward_SetVector
+ 335              	.LVL19:
+ 336 000c 08BD     		pop	{r3, pc}
+ 337              	.L35:
+ 338 000e 00BF     		.align	2
+ 339              	.L34:
+ 340 0010 00000000 		.word	IntDefaultHandler
+ 341              		.cfi_endproc
+ 342              	.LFE2:
+ 343              		.size	isr_start_forward_Stop, .-isr_start_forward_Stop
+ 344              		.section	.text.isr_start_forward_SetPending,"ax",%progbits
+ 345              		.align	2
+ 346              		.global	isr_start_forward_SetPending
+ 347              		.thumb
+ 348              		.thumb_func
+ 349              		.type	isr_start_forward_SetPending, %function
+ 350              	isr_start_forward_SetPending:
+ 351              	.LFB11:
+ 355:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 356:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 357:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 358:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 359:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_SetPending
+ 360:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 361:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 362:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 363:Generated_Source\PSoC5/isr_start_forward.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 364:Generated_Source\PSoC5/isr_start_forward.c **** *   generating the interrupt.
+ 365:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 366:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 367:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 368:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 369:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 370:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 371:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 372:Generated_Source\PSoC5/isr_start_forward.c **** * Side Effects:
+ 373:Generated_Source\PSoC5/isr_start_forward.c **** *   If interrupts are enabled and the interrupt is set up properly, the ISR is
+ 374:Generated_Source\PSoC5/isr_start_forward.c **** *   entered (depending on the priority of this interrupt and other pending 
+ 375:Generated_Source\PSoC5/isr_start_forward.c **** *   interrupts).
+ 376:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 377:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 14
+
+
+ 378:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_SetPending(void)
+ 379:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 352              		.loc 1 379 0
+ 353              		.cfi_startproc
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              		@ link register save eliminated.
+ 380:Generated_Source\PSoC5/isr_start_forward.c ****     *isr_start_forward_INTC_SET_PD = isr_start_forward__INTC_MASK;
+ 357              		.loc 1 380 0
+ 358 0000 0222     		movs	r2, #2
+ 359 0002 014B     		ldr	r3, .L37
+ 360 0004 1A60     		str	r2, [r3]
+ 361 0006 7047     		bx	lr
+ 362              	.L38:
+ 363              		.align	2
+ 364              	.L37:
+ 365 0008 00E200E0 		.word	-536813056
+ 366              		.cfi_endproc
+ 367              	.LFE11:
+ 368              		.size	isr_start_forward_SetPending, .-isr_start_forward_SetPending
+ 369              		.section	.text.isr_start_forward_ClearPending,"ax",%progbits
+ 370              		.align	2
+ 371              		.global	isr_start_forward_ClearPending
+ 372              		.thumb
+ 373              		.thumb_func
+ 374              		.type	isr_start_forward_ClearPending, %function
+ 375              	isr_start_forward_ClearPending:
+ 376              	.LFB12:
+ 381:Generated_Source\PSoC5/isr_start_forward.c **** }
+ 382:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 383:Generated_Source\PSoC5/isr_start_forward.c **** 
+ 384:Generated_Source\PSoC5/isr_start_forward.c **** /*******************************************************************************
+ 385:Generated_Source\PSoC5/isr_start_forward.c **** * Function Name: isr_start_forward_ClearPending
+ 386:Generated_Source\PSoC5/isr_start_forward.c **** ********************************************************************************
+ 387:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 388:Generated_Source\PSoC5/isr_start_forward.c **** * Summary:
+ 389:Generated_Source\PSoC5/isr_start_forward.c **** *   Clears a pending interrupt in the interrupt controller.
+ 390:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 391:Generated_Source\PSoC5/isr_start_forward.c **** *   Note Some interrupt sources are clear-on-read and require the block 
+ 392:Generated_Source\PSoC5/isr_start_forward.c **** *   interrupt/status register to be read/cleared with the appropriate block API 
+ 393:Generated_Source\PSoC5/isr_start_forward.c **** *   (GPIO, UART, and so on). Otherwise the ISR will continue to remain in 
+ 394:Generated_Source\PSoC5/isr_start_forward.c **** *   pending state even though the interrupt itself is cleared using this API.
+ 395:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 396:Generated_Source\PSoC5/isr_start_forward.c **** * Parameters:
+ 397:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 398:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 399:Generated_Source\PSoC5/isr_start_forward.c **** * Return:
+ 400:Generated_Source\PSoC5/isr_start_forward.c **** *   None
+ 401:Generated_Source\PSoC5/isr_start_forward.c **** *
+ 402:Generated_Source\PSoC5/isr_start_forward.c **** *******************************************************************************/
+ 403:Generated_Source\PSoC5/isr_start_forward.c **** void isr_start_forward_ClearPending(void)
+ 404:Generated_Source\PSoC5/isr_start_forward.c **** {
+ 377              		.loc 1 404 0
+ 378              		.cfi_startproc
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 381              		@ link register save eliminated.
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 15
+
+
+ 405:Generated_Source\PSoC5/isr_start_forward.c ****     *isr_start_forward_INTC_CLR_PD = isr_start_forward__INTC_MASK;
+ 382              		.loc 1 405 0
+ 383 0000 0222     		movs	r2, #2
+ 384 0002 014B     		ldr	r3, .L40
+ 385 0004 1A60     		str	r2, [r3]
+ 386 0006 7047     		bx	lr
+ 387              	.L41:
+ 388              		.align	2
+ 389              	.L40:
+ 390 0008 80E200E0 		.word	-536812928
+ 391              		.cfi_endproc
+ 392              	.LFE12:
+ 393              		.size	isr_start_forward_ClearPending, .-isr_start_forward_ClearPending
+ 394              		.text
+ 395              	.Letext0:
+ 396              		.file 2 "Generated_Source\\PSoC5/cytypes.h"
+ 397              		.file 3 "Generated_Source\\PSoC5/CyLib.h"
+ 398              		.file 4 "./isr_func.h"
+ 399              		.section	.debug_info,"",%progbits
+ 400              	.Ldebug_info0:
+ 401 0000 06030000 		.4byte	0x306
+ 402 0004 0400     		.2byte	0x4
+ 403 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 404 000a 04       		.byte	0x4
+ 405 000b 01       		.uleb128 0x1
+ 406 000c 8A000000 		.4byte	.LASF36
+ 407 0010 0C       		.byte	0xc
+ 408 0011 4D010000 		.4byte	.LASF37
+ 409 0015 38020000 		.4byte	.LASF38
+ 410 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 411 001d 00000000 		.4byte	0
+ 412 0021 00000000 		.4byte	.Ldebug_line0
+ 413 0025 02       		.uleb128 0x2
+ 414 0026 04       		.byte	0x4
+ 415 0027 05       		.byte	0x5
+ 416 0028 696E7400 		.ascii	"int\000"
+ 417 002c 03       		.uleb128 0x3
+ 418 002d 04       		.byte	0x4
+ 419 002e 07       		.byte	0x7
+ 420 002f 7F010000 		.4byte	.LASF0
+ 421 0033 03       		.uleb128 0x3
+ 422 0034 08       		.byte	0x8
+ 423 0035 05       		.byte	0x5
+ 424 0036 2A020000 		.4byte	.LASF1
+ 425 003a 03       		.uleb128 0x3
+ 426 003b 08       		.byte	0x8
+ 427 003c 04       		.byte	0x4
+ 428 003d 3A030000 		.4byte	.LASF2
+ 429 0041 03       		.uleb128 0x3
+ 430 0042 01       		.byte	0x1
+ 431 0043 06       		.byte	0x6
+ 432 0044 64030000 		.4byte	.LASF3
+ 433 0048 03       		.uleb128 0x3
+ 434 0049 01       		.byte	0x1
+ 435 004a 08       		.byte	0x8
+ 436 004b 7C000000 		.4byte	.LASF4
+ 437 004f 03       		.uleb128 0x3
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 16
+
+
+ 438 0050 02       		.byte	0x2
+ 439 0051 05       		.byte	0x5
+ 440 0052 D5020000 		.4byte	.LASF5
+ 441 0056 03       		.uleb128 0x3
+ 442 0057 02       		.byte	0x2
+ 443 0058 07       		.byte	0x7
+ 444 0059 63000000 		.4byte	.LASF6
+ 445 005d 03       		.uleb128 0x3
+ 446 005e 04       		.byte	0x4
+ 447 005f 05       		.byte	0x5
+ 448 0060 31030000 		.4byte	.LASF7
+ 449 0064 03       		.uleb128 0x3
+ 450 0065 04       		.byte	0x4
+ 451 0066 07       		.byte	0x7
+ 452 0067 25010000 		.4byte	.LASF8
+ 453 006b 03       		.uleb128 0x3
+ 454 006c 08       		.byte	0x8
+ 455 006d 07       		.byte	0x7
+ 456 006e A5010000 		.4byte	.LASF9
+ 457 0072 03       		.uleb128 0x3
+ 458 0073 04       		.byte	0x4
+ 459 0074 07       		.byte	0x7
+ 460 0075 21020000 		.4byte	.LASF10
+ 461 0079 03       		.uleb128 0x3
+ 462 007a 01       		.byte	0x1
+ 463 007b 08       		.byte	0x8
+ 464 007c A4020000 		.4byte	.LASF11
+ 465 0080 04       		.uleb128 0x4
+ 466 0081 04       		.byte	0x4
+ 467 0082 86000000 		.4byte	0x86
+ 468 0086 05       		.uleb128 0x5
+ 469 0087 06       		.uleb128 0x6
+ 470 0088 37010000 		.4byte	.LASF12
+ 471 008c 02       		.byte	0x2
+ 472 008d E401     		.2byte	0x1e4
+ 473 008f 48000000 		.4byte	0x48
+ 474 0093 06       		.uleb128 0x6
+ 475 0094 78010000 		.4byte	.LASF13
+ 476 0098 02       		.byte	0x2
+ 477 0099 E601     		.2byte	0x1e6
+ 478 009b 64000000 		.4byte	0x64
+ 479 009f 03       		.uleb128 0x3
+ 480 00a0 04       		.byte	0x4
+ 481 00a1 04       		.byte	0x4
+ 482 00a2 76000000 		.4byte	.LASF14
+ 483 00a6 03       		.uleb128 0x3
+ 484 00a7 08       		.byte	0x8
+ 485 00a8 04       		.byte	0x4
+ 486 00a9 46010000 		.4byte	.LASF15
+ 487 00ad 06       		.uleb128 0x6
+ 488 00ae 18010000 		.4byte	.LASF16
+ 489 00b2 02       		.byte	0x2
+ 490 00b3 8E02     		.2byte	0x28e
+ 491 00b5 B9000000 		.4byte	0xb9
+ 492 00b9 07       		.uleb128 0x7
+ 493 00ba 87000000 		.4byte	0x87
+ 494 00be 06       		.uleb128 0x6
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 17
+
+
+ 495 00bf 1A000000 		.4byte	.LASF17
+ 496 00c3 02       		.byte	0x2
+ 497 00c4 9002     		.2byte	0x290
+ 498 00c6 CA000000 		.4byte	0xca
+ 499 00ca 07       		.uleb128 0x7
+ 500 00cb 93000000 		.4byte	0x93
+ 501 00cf 06       		.uleb128 0x6
+ 502 00d0 14020000 		.4byte	.LASF18
+ 503 00d4 02       		.byte	0x2
+ 504 00d5 A002     		.2byte	0x2a0
+ 505 00d7 80000000 		.4byte	0x80
+ 506 00db 08       		.uleb128 0x8
+ 507 00dc 15030000 		.4byte	.LASF19
+ 508 00e0 01       		.byte	0x1
+ 509 00e1 A1       		.byte	0xa1
+ 510 00e2 00000000 		.4byte	.LFB3
+ 511 00e6 0E000000 		.4byte	.LFE3-.LFB3
+ 512 00ea 01       		.uleb128 0x1
+ 513 00eb 9C       		.byte	0x9c
+ 514 00ec 0E010000 		.4byte	0x10e
+ 515 00f0 09       		.uleb128 0x9
+ 516 00f1 08000000 		.4byte	.LVL0
+ 517 00f5 F3020000 		.4byte	0x2f3
+ 518 00f9 04010000 		.4byte	0x104
+ 519 00fd 0A       		.uleb128 0xa
+ 520 00fe 01       		.uleb128 0x1
+ 521 00ff 50       		.byte	0x50
+ 522 0100 02       		.uleb128 0x2
+ 523 0101 08       		.byte	0x8
+ 524 0102 64       		.byte	0x64
+ 525 0103 00       		.byte	0
+ 526 0104 0B       		.uleb128 0xb
+ 527 0105 0C000000 		.4byte	.LVL1
+ 528 0109 FE020000 		.4byte	0x2fe
+ 529 010d 00       		.byte	0
+ 530 010e 08       		.uleb128 0x8
+ 531 010f 78030000 		.4byte	.LASF20
+ 532 0113 01       		.byte	0x1
+ 533 0114 CA       		.byte	0xca
+ 534 0115 00000000 		.4byte	.LFB4
+ 535 0119 0C000000 		.4byte	.LFE4-.LFB4
+ 536 011d 01       		.uleb128 0x1
+ 537 011e 9C       		.byte	0x9c
+ 538 011f 3E010000 		.4byte	0x13e
+ 539 0123 0C       		.uleb128 0xc
+ 540 0124 1D010000 		.4byte	.LASF23
+ 541 0128 01       		.byte	0x1
+ 542 0129 CA       		.byte	0xca
+ 543 012a CF000000 		.4byte	0xcf
+ 544 012e 01       		.uleb128 0x1
+ 545 012f 50       		.byte	0x50
+ 546 0130 0D       		.uleb128 0xd
+ 547 0131 A9020000 		.4byte	.LASF21
+ 548 0135 01       		.byte	0x1
+ 549 0136 CC       		.byte	0xcc
+ 550 0137 3E010000 		.4byte	0x13e
+ 551 013b 01       		.uleb128 0x1
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 18
+
+
+ 552 013c 53       		.byte	0x53
+ 553 013d 00       		.byte	0
+ 554 013e 04       		.uleb128 0x4
+ 555 013f 04       		.byte	0x4
+ 556 0140 CF000000 		.4byte	0xcf
+ 557 0144 0E       		.uleb128 0xe
+ 558 0145 DF020000 		.4byte	.LASF25
+ 559 0149 01       		.byte	0x1
+ 560 014a E2       		.byte	0xe2
+ 561 014b CF000000 		.4byte	0xcf
+ 562 014f 00000000 		.4byte	.LFB5
+ 563 0153 0C000000 		.4byte	.LFE5-.LFB5
+ 564 0157 01       		.uleb128 0x1
+ 565 0158 9C       		.byte	0x9c
+ 566 0159 6B010000 		.4byte	0x16b
+ 567 015d 0D       		.uleb128 0xd
+ 568 015e A9020000 		.4byte	.LASF21
+ 569 0162 01       		.byte	0x1
+ 570 0163 E4       		.byte	0xe4
+ 571 0164 3E010000 		.4byte	0x13e
+ 572 0168 01       		.uleb128 0x1
+ 573 0169 53       		.byte	0x53
+ 574 016a 00       		.byte	0
+ 575 016b 0F       		.uleb128 0xf
+ 576 016c 46030000 		.4byte	.LASF22
+ 577 0170 01       		.byte	0x1
+ 578 0171 0401     		.2byte	0x104
+ 579 0173 00000000 		.4byte	.LFB6
+ 580 0177 10000000 		.4byte	.LFE6-.LFB6
+ 581 017b 01       		.uleb128 0x1
+ 582 017c 9C       		.byte	0x9c
+ 583 017d 92010000 		.4byte	0x192
+ 584 0181 10       		.uleb128 0x10
+ 585 0182 3D010000 		.4byte	.LASF24
+ 586 0186 01       		.byte	0x1
+ 587 0187 0401     		.2byte	0x104
+ 588 0189 87000000 		.4byte	0x87
+ 589 018d 00000000 		.4byte	.LLST0
+ 590 0191 00       		.byte	0
+ 591 0192 11       		.uleb128 0x11
+ 592 0193 D7010000 		.4byte	.LASF26
+ 593 0197 01       		.byte	0x1
+ 594 0198 1A01     		.2byte	0x11a
+ 595 019a 87000000 		.4byte	0x87
+ 596 019e 00000000 		.4byte	.LFB7
+ 597 01a2 0C000000 		.4byte	.LFE7-.LFB7
+ 598 01a6 01       		.uleb128 0x1
+ 599 01a7 9C       		.byte	0x9c
+ 600 01a8 BD010000 		.4byte	0x1bd
+ 601 01ac 12       		.uleb128 0x12
+ 602 01ad 3D010000 		.4byte	.LASF24
+ 603 01b1 01       		.byte	0x1
+ 604 01b2 1C01     		.2byte	0x11c
+ 605 01b4 87000000 		.4byte	0x87
+ 606 01b8 21000000 		.4byte	.LLST1
+ 607 01bc 00       		.byte	0
+ 608 01bd 13       		.uleb128 0x13
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 19
+
+
+ 609 01be 8C010000 		.4byte	.LASF27
+ 610 01c2 01       		.byte	0x1
+ 611 01c3 3501     		.2byte	0x135
+ 612 01c5 00000000 		.4byte	.LFB8
+ 613 01c9 0C000000 		.4byte	.LFE8-.LFB8
+ 614 01cd 01       		.uleb128 0x1
+ 615 01ce 9C       		.byte	0x9c
+ 616 01cf 14       		.uleb128 0x14
+ 617 01d0 BC010000 		.4byte	.LASF39
+ 618 01d4 01       		.byte	0x1
+ 619 01d5 4A01     		.2byte	0x14a
+ 620 01d7 87000000 		.4byte	0x87
+ 621 01db 00000000 		.4byte	.LFB9
+ 622 01df 18000000 		.4byte	.LFE9-.LFB9
+ 623 01e3 01       		.uleb128 0x1
+ 624 01e4 9C       		.byte	0x9c
+ 625 01e5 13       		.uleb128 0x13
+ 626 01e6 00000000 		.4byte	.LASF28
+ 627 01ea 01       		.byte	0x1
+ 628 01eb 5F01     		.2byte	0x15f
+ 629 01ed 00000000 		.4byte	.LFB10
+ 630 01f1 0C000000 		.4byte	.LFE10-.LFB10
+ 631 01f5 01       		.uleb128 0x1
+ 632 01f6 9C       		.byte	0x9c
+ 633 01f7 08       		.uleb128 0x8
+ 634 01f8 20000000 		.4byte	.LASF29
+ 635 01fc 01       		.byte	0x1
+ 636 01fd 3E       		.byte	0x3e
+ 637 01fe 00000000 		.4byte	.LFB0
+ 638 0202 1C000000 		.4byte	.LFE0-.LFB0
+ 639 0206 01       		.uleb128 0x1
+ 640 0207 9C       		.byte	0x9c
+ 641 0208 49020000 		.4byte	0x249
+ 642 020c 0B       		.uleb128 0xb
+ 643 020d 06000000 		.4byte	.LVL9
+ 644 0211 E5010000 		.4byte	0x1e5
+ 645 0215 09       		.uleb128 0x9
+ 646 0216 0C000000 		.4byte	.LVL10
+ 647 021a 0E010000 		.4byte	0x10e
+ 648 021e 2C020000 		.4byte	0x22c
+ 649 0222 0A       		.uleb128 0xa
+ 650 0223 01       		.uleb128 0x1
+ 651 0224 50       		.byte	0x50
+ 652 0225 05       		.uleb128 0x5
+ 653 0226 03       		.byte	0x3
+ 654 0227 00000000 		.4byte	isr_start_forward_Interrupt
+ 655 022b 00       		.byte	0
+ 656 022c 09       		.uleb128 0x9
+ 657 022d 12000000 		.4byte	.LVL11
+ 658 0231 6B010000 		.4byte	0x16b
+ 659 0235 3F020000 		.4byte	0x23f
+ 660 0239 0A       		.uleb128 0xa
+ 661 023a 01       		.uleb128 0x1
+ 662 023b 50       		.byte	0x50
+ 663 023c 01       		.uleb128 0x1
+ 664 023d 37       		.byte	0x37
+ 665 023e 00       		.byte	0
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 20
+
+
+ 666 023f 0B       		.uleb128 0xb
+ 667 0240 16000000 		.4byte	.LVL12
+ 668 0244 BD010000 		.4byte	0x1bd
+ 669 0248 00       		.byte	0
+ 670 0249 08       		.uleb128 0x8
+ 671 024a FB020000 		.4byte	.LASF30
+ 672 024e 01       		.byte	0x1
+ 673 024f 69       		.byte	0x69
+ 674 0250 00000000 		.4byte	.LFB1
+ 675 0254 1A000000 		.4byte	.LFE1-.LFB1
+ 676 0258 01       		.uleb128 0x1
+ 677 0259 9C       		.byte	0x9c
+ 678 025a A7020000 		.4byte	0x2a7
+ 679 025e 15       		.uleb128 0x15
+ 680 025f 1D010000 		.4byte	.LASF23
+ 681 0263 01       		.byte	0x1
+ 682 0264 69       		.byte	0x69
+ 683 0265 CF000000 		.4byte	0xcf
+ 684 0269 38000000 		.4byte	.LLST2
+ 685 026d 0B       		.uleb128 0xb
+ 686 026e 08000000 		.4byte	.LVL14
+ 687 0272 E5010000 		.4byte	0x1e5
+ 688 0276 09       		.uleb128 0x9
+ 689 0277 0E000000 		.4byte	.LVL15
+ 690 027b 0E010000 		.4byte	0x10e
+ 691 027f 8A020000 		.4byte	0x28a
+ 692 0283 0A       		.uleb128 0xa
+ 693 0284 01       		.uleb128 0x1
+ 694 0285 50       		.byte	0x50
+ 695 0286 02       		.uleb128 0x2
+ 696 0287 74       		.byte	0x74
+ 697 0288 00       		.sleb128 0
+ 698 0289 00       		.byte	0
+ 699 028a 09       		.uleb128 0x9
+ 700 028b 14000000 		.4byte	.LVL16
+ 701 028f 6B010000 		.4byte	0x16b
+ 702 0293 9D020000 		.4byte	0x29d
+ 703 0297 0A       		.uleb128 0xa
+ 704 0298 01       		.uleb128 0x1
+ 705 0299 50       		.byte	0x50
+ 706 029a 01       		.uleb128 0x1
+ 707 029b 37       		.byte	0x37
+ 708 029c 00       		.byte	0
+ 709 029d 0B       		.uleb128 0xb
+ 710 029e 18000000 		.4byte	.LVL17
+ 711 02a2 BD010000 		.4byte	0x1bd
+ 712 02a6 00       		.byte	0
+ 713 02a7 08       		.uleb128 0x8
+ 714 02a8 4C000000 		.4byte	.LASF31
+ 715 02ac 01       		.byte	0x1
+ 716 02ad 87       		.byte	0x87
+ 717 02ae 00000000 		.4byte	.LFB2
+ 718 02b2 14000000 		.4byte	.LFE2-.LFB2
+ 719 02b6 01       		.uleb128 0x1
+ 720 02b7 9C       		.byte	0x9c
+ 721 02b8 CF020000 		.4byte	0x2cf
+ 722 02bc 0B       		.uleb128 0xb
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 21
+
+
+ 723 02bd 06000000 		.4byte	.LVL18
+ 724 02c1 E5010000 		.4byte	0x1e5
+ 725 02c5 0B       		.uleb128 0xb
+ 726 02c6 0C000000 		.4byte	.LVL19
+ 727 02ca 0E010000 		.4byte	0x10e
+ 728 02ce 00       		.byte	0
+ 729 02cf 13       		.uleb128 0x13
+ 730 02d0 B8020000 		.4byte	.LASF32
+ 731 02d4 01       		.byte	0x1
+ 732 02d5 7A01     		.2byte	0x17a
+ 733 02d7 00000000 		.4byte	.LFB11
+ 734 02db 0C000000 		.4byte	.LFE11-.LFB11
+ 735 02df 01       		.uleb128 0x1
+ 736 02e0 9C       		.byte	0x9c
+ 737 02e1 13       		.uleb128 0x13
+ 738 02e2 F5010000 		.4byte	.LASF33
+ 739 02e6 01       		.byte	0x1
+ 740 02e7 9301     		.2byte	0x193
+ 741 02e9 00000000 		.4byte	.LFB12
+ 742 02ed 0C000000 		.4byte	.LFE12-.LFB12
+ 743 02f1 01       		.uleb128 0x1
+ 744 02f2 9C       		.byte	0x9c
+ 745 02f3 16       		.uleb128 0x16
+ 746 02f4 70030000 		.4byte	.LASF34
+ 747 02f8 70030000 		.4byte	.LASF34
+ 748 02fc 03       		.byte	0x3
+ 749 02fd 76       		.byte	0x76
+ 750 02fe 16       		.uleb128 0x16
+ 751 02ff 38000000 		.4byte	.LASF35
+ 752 0303 38000000 		.4byte	.LASF35
+ 753 0307 04       		.byte	0x4
+ 754 0308 11       		.byte	0x11
+ 755 0309 00       		.byte	0
+ 756              		.section	.debug_abbrev,"",%progbits
+ 757              	.Ldebug_abbrev0:
+ 758 0000 01       		.uleb128 0x1
+ 759 0001 11       		.uleb128 0x11
+ 760 0002 01       		.byte	0x1
+ 761 0003 25       		.uleb128 0x25
+ 762 0004 0E       		.uleb128 0xe
+ 763 0005 13       		.uleb128 0x13
+ 764 0006 0B       		.uleb128 0xb
+ 765 0007 03       		.uleb128 0x3
+ 766 0008 0E       		.uleb128 0xe
+ 767 0009 1B       		.uleb128 0x1b
+ 768 000a 0E       		.uleb128 0xe
+ 769 000b 55       		.uleb128 0x55
+ 770 000c 17       		.uleb128 0x17
+ 771 000d 11       		.uleb128 0x11
+ 772 000e 01       		.uleb128 0x1
+ 773 000f 10       		.uleb128 0x10
+ 774 0010 17       		.uleb128 0x17
+ 775 0011 00       		.byte	0
+ 776 0012 00       		.byte	0
+ 777 0013 02       		.uleb128 0x2
+ 778 0014 24       		.uleb128 0x24
+ 779 0015 00       		.byte	0
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 22
+
+
+ 780 0016 0B       		.uleb128 0xb
+ 781 0017 0B       		.uleb128 0xb
+ 782 0018 3E       		.uleb128 0x3e
+ 783 0019 0B       		.uleb128 0xb
+ 784 001a 03       		.uleb128 0x3
+ 785 001b 08       		.uleb128 0x8
+ 786 001c 00       		.byte	0
+ 787 001d 00       		.byte	0
+ 788 001e 03       		.uleb128 0x3
+ 789 001f 24       		.uleb128 0x24
+ 790 0020 00       		.byte	0
+ 791 0021 0B       		.uleb128 0xb
+ 792 0022 0B       		.uleb128 0xb
+ 793 0023 3E       		.uleb128 0x3e
+ 794 0024 0B       		.uleb128 0xb
+ 795 0025 03       		.uleb128 0x3
+ 796 0026 0E       		.uleb128 0xe
+ 797 0027 00       		.byte	0
+ 798 0028 00       		.byte	0
+ 799 0029 04       		.uleb128 0x4
+ 800 002a 0F       		.uleb128 0xf
+ 801 002b 00       		.byte	0
+ 802 002c 0B       		.uleb128 0xb
+ 803 002d 0B       		.uleb128 0xb
+ 804 002e 49       		.uleb128 0x49
+ 805 002f 13       		.uleb128 0x13
+ 806 0030 00       		.byte	0
+ 807 0031 00       		.byte	0
+ 808 0032 05       		.uleb128 0x5
+ 809 0033 15       		.uleb128 0x15
+ 810 0034 00       		.byte	0
+ 811 0035 27       		.uleb128 0x27
+ 812 0036 19       		.uleb128 0x19
+ 813 0037 00       		.byte	0
+ 814 0038 00       		.byte	0
+ 815 0039 06       		.uleb128 0x6
+ 816 003a 16       		.uleb128 0x16
+ 817 003b 00       		.byte	0
+ 818 003c 03       		.uleb128 0x3
+ 819 003d 0E       		.uleb128 0xe
+ 820 003e 3A       		.uleb128 0x3a
+ 821 003f 0B       		.uleb128 0xb
+ 822 0040 3B       		.uleb128 0x3b
+ 823 0041 05       		.uleb128 0x5
+ 824 0042 49       		.uleb128 0x49
+ 825 0043 13       		.uleb128 0x13
+ 826 0044 00       		.byte	0
+ 827 0045 00       		.byte	0
+ 828 0046 07       		.uleb128 0x7
+ 829 0047 35       		.uleb128 0x35
+ 830 0048 00       		.byte	0
+ 831 0049 49       		.uleb128 0x49
+ 832 004a 13       		.uleb128 0x13
+ 833 004b 00       		.byte	0
+ 834 004c 00       		.byte	0
+ 835 004d 08       		.uleb128 0x8
+ 836 004e 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 23
+
+
+ 837 004f 01       		.byte	0x1
+ 838 0050 3F       		.uleb128 0x3f
+ 839 0051 19       		.uleb128 0x19
+ 840 0052 03       		.uleb128 0x3
+ 841 0053 0E       		.uleb128 0xe
+ 842 0054 3A       		.uleb128 0x3a
+ 843 0055 0B       		.uleb128 0xb
+ 844 0056 3B       		.uleb128 0x3b
+ 845 0057 0B       		.uleb128 0xb
+ 846 0058 27       		.uleb128 0x27
+ 847 0059 19       		.uleb128 0x19
+ 848 005a 11       		.uleb128 0x11
+ 849 005b 01       		.uleb128 0x1
+ 850 005c 12       		.uleb128 0x12
+ 851 005d 06       		.uleb128 0x6
+ 852 005e 40       		.uleb128 0x40
+ 853 005f 18       		.uleb128 0x18
+ 854 0060 9742     		.uleb128 0x2117
+ 855 0062 19       		.uleb128 0x19
+ 856 0063 01       		.uleb128 0x1
+ 857 0064 13       		.uleb128 0x13
+ 858 0065 00       		.byte	0
+ 859 0066 00       		.byte	0
+ 860 0067 09       		.uleb128 0x9
+ 861 0068 898201   		.uleb128 0x4109
+ 862 006b 01       		.byte	0x1
+ 863 006c 11       		.uleb128 0x11
+ 864 006d 01       		.uleb128 0x1
+ 865 006e 31       		.uleb128 0x31
+ 866 006f 13       		.uleb128 0x13
+ 867 0070 01       		.uleb128 0x1
+ 868 0071 13       		.uleb128 0x13
+ 869 0072 00       		.byte	0
+ 870 0073 00       		.byte	0
+ 871 0074 0A       		.uleb128 0xa
+ 872 0075 8A8201   		.uleb128 0x410a
+ 873 0078 00       		.byte	0
+ 874 0079 02       		.uleb128 0x2
+ 875 007a 18       		.uleb128 0x18
+ 876 007b 9142     		.uleb128 0x2111
+ 877 007d 18       		.uleb128 0x18
+ 878 007e 00       		.byte	0
+ 879 007f 00       		.byte	0
+ 880 0080 0B       		.uleb128 0xb
+ 881 0081 898201   		.uleb128 0x4109
+ 882 0084 00       		.byte	0
+ 883 0085 11       		.uleb128 0x11
+ 884 0086 01       		.uleb128 0x1
+ 885 0087 31       		.uleb128 0x31
+ 886 0088 13       		.uleb128 0x13
+ 887 0089 00       		.byte	0
+ 888 008a 00       		.byte	0
+ 889 008b 0C       		.uleb128 0xc
+ 890 008c 05       		.uleb128 0x5
+ 891 008d 00       		.byte	0
+ 892 008e 03       		.uleb128 0x3
+ 893 008f 0E       		.uleb128 0xe
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 24
+
+
+ 894 0090 3A       		.uleb128 0x3a
+ 895 0091 0B       		.uleb128 0xb
+ 896 0092 3B       		.uleb128 0x3b
+ 897 0093 0B       		.uleb128 0xb
+ 898 0094 49       		.uleb128 0x49
+ 899 0095 13       		.uleb128 0x13
+ 900 0096 02       		.uleb128 0x2
+ 901 0097 18       		.uleb128 0x18
+ 902 0098 00       		.byte	0
+ 903 0099 00       		.byte	0
+ 904 009a 0D       		.uleb128 0xd
+ 905 009b 34       		.uleb128 0x34
+ 906 009c 00       		.byte	0
+ 907 009d 03       		.uleb128 0x3
+ 908 009e 0E       		.uleb128 0xe
+ 909 009f 3A       		.uleb128 0x3a
+ 910 00a0 0B       		.uleb128 0xb
+ 911 00a1 3B       		.uleb128 0x3b
+ 912 00a2 0B       		.uleb128 0xb
+ 913 00a3 49       		.uleb128 0x49
+ 914 00a4 13       		.uleb128 0x13
+ 915 00a5 02       		.uleb128 0x2
+ 916 00a6 18       		.uleb128 0x18
+ 917 00a7 00       		.byte	0
+ 918 00a8 00       		.byte	0
+ 919 00a9 0E       		.uleb128 0xe
+ 920 00aa 2E       		.uleb128 0x2e
+ 921 00ab 01       		.byte	0x1
+ 922 00ac 3F       		.uleb128 0x3f
+ 923 00ad 19       		.uleb128 0x19
+ 924 00ae 03       		.uleb128 0x3
+ 925 00af 0E       		.uleb128 0xe
+ 926 00b0 3A       		.uleb128 0x3a
+ 927 00b1 0B       		.uleb128 0xb
+ 928 00b2 3B       		.uleb128 0x3b
+ 929 00b3 0B       		.uleb128 0xb
+ 930 00b4 27       		.uleb128 0x27
+ 931 00b5 19       		.uleb128 0x19
+ 932 00b6 49       		.uleb128 0x49
+ 933 00b7 13       		.uleb128 0x13
+ 934 00b8 11       		.uleb128 0x11
+ 935 00b9 01       		.uleb128 0x1
+ 936 00ba 12       		.uleb128 0x12
+ 937 00bb 06       		.uleb128 0x6
+ 938 00bc 40       		.uleb128 0x40
+ 939 00bd 18       		.uleb128 0x18
+ 940 00be 9742     		.uleb128 0x2117
+ 941 00c0 19       		.uleb128 0x19
+ 942 00c1 01       		.uleb128 0x1
+ 943 00c2 13       		.uleb128 0x13
+ 944 00c3 00       		.byte	0
+ 945 00c4 00       		.byte	0
+ 946 00c5 0F       		.uleb128 0xf
+ 947 00c6 2E       		.uleb128 0x2e
+ 948 00c7 01       		.byte	0x1
+ 949 00c8 3F       		.uleb128 0x3f
+ 950 00c9 19       		.uleb128 0x19
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 25
+
+
+ 951 00ca 03       		.uleb128 0x3
+ 952 00cb 0E       		.uleb128 0xe
+ 953 00cc 3A       		.uleb128 0x3a
+ 954 00cd 0B       		.uleb128 0xb
+ 955 00ce 3B       		.uleb128 0x3b
+ 956 00cf 05       		.uleb128 0x5
+ 957 00d0 27       		.uleb128 0x27
+ 958 00d1 19       		.uleb128 0x19
+ 959 00d2 11       		.uleb128 0x11
+ 960 00d3 01       		.uleb128 0x1
+ 961 00d4 12       		.uleb128 0x12
+ 962 00d5 06       		.uleb128 0x6
+ 963 00d6 40       		.uleb128 0x40
+ 964 00d7 18       		.uleb128 0x18
+ 965 00d8 9742     		.uleb128 0x2117
+ 966 00da 19       		.uleb128 0x19
+ 967 00db 01       		.uleb128 0x1
+ 968 00dc 13       		.uleb128 0x13
+ 969 00dd 00       		.byte	0
+ 970 00de 00       		.byte	0
+ 971 00df 10       		.uleb128 0x10
+ 972 00e0 05       		.uleb128 0x5
+ 973 00e1 00       		.byte	0
+ 974 00e2 03       		.uleb128 0x3
+ 975 00e3 0E       		.uleb128 0xe
+ 976 00e4 3A       		.uleb128 0x3a
+ 977 00e5 0B       		.uleb128 0xb
+ 978 00e6 3B       		.uleb128 0x3b
+ 979 00e7 05       		.uleb128 0x5
+ 980 00e8 49       		.uleb128 0x49
+ 981 00e9 13       		.uleb128 0x13
+ 982 00ea 02       		.uleb128 0x2
+ 983 00eb 17       		.uleb128 0x17
+ 984 00ec 00       		.byte	0
+ 985 00ed 00       		.byte	0
+ 986 00ee 11       		.uleb128 0x11
+ 987 00ef 2E       		.uleb128 0x2e
+ 988 00f0 01       		.byte	0x1
+ 989 00f1 3F       		.uleb128 0x3f
+ 990 00f2 19       		.uleb128 0x19
+ 991 00f3 03       		.uleb128 0x3
+ 992 00f4 0E       		.uleb128 0xe
+ 993 00f5 3A       		.uleb128 0x3a
+ 994 00f6 0B       		.uleb128 0xb
+ 995 00f7 3B       		.uleb128 0x3b
+ 996 00f8 05       		.uleb128 0x5
+ 997 00f9 27       		.uleb128 0x27
+ 998 00fa 19       		.uleb128 0x19
+ 999 00fb 49       		.uleb128 0x49
+ 1000 00fc 13       		.uleb128 0x13
+ 1001 00fd 11       		.uleb128 0x11
+ 1002 00fe 01       		.uleb128 0x1
+ 1003 00ff 12       		.uleb128 0x12
+ 1004 0100 06       		.uleb128 0x6
+ 1005 0101 40       		.uleb128 0x40
+ 1006 0102 18       		.uleb128 0x18
+ 1007 0103 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 26
+
+
+ 1008 0105 19       		.uleb128 0x19
+ 1009 0106 01       		.uleb128 0x1
+ 1010 0107 13       		.uleb128 0x13
+ 1011 0108 00       		.byte	0
+ 1012 0109 00       		.byte	0
+ 1013 010a 12       		.uleb128 0x12
+ 1014 010b 34       		.uleb128 0x34
+ 1015 010c 00       		.byte	0
+ 1016 010d 03       		.uleb128 0x3
+ 1017 010e 0E       		.uleb128 0xe
+ 1018 010f 3A       		.uleb128 0x3a
+ 1019 0110 0B       		.uleb128 0xb
+ 1020 0111 3B       		.uleb128 0x3b
+ 1021 0112 05       		.uleb128 0x5
+ 1022 0113 49       		.uleb128 0x49
+ 1023 0114 13       		.uleb128 0x13
+ 1024 0115 02       		.uleb128 0x2
+ 1025 0116 17       		.uleb128 0x17
+ 1026 0117 00       		.byte	0
+ 1027 0118 00       		.byte	0
+ 1028 0119 13       		.uleb128 0x13
+ 1029 011a 2E       		.uleb128 0x2e
+ 1030 011b 00       		.byte	0
+ 1031 011c 3F       		.uleb128 0x3f
+ 1032 011d 19       		.uleb128 0x19
+ 1033 011e 03       		.uleb128 0x3
+ 1034 011f 0E       		.uleb128 0xe
+ 1035 0120 3A       		.uleb128 0x3a
+ 1036 0121 0B       		.uleb128 0xb
+ 1037 0122 3B       		.uleb128 0x3b
+ 1038 0123 05       		.uleb128 0x5
+ 1039 0124 27       		.uleb128 0x27
+ 1040 0125 19       		.uleb128 0x19
+ 1041 0126 11       		.uleb128 0x11
+ 1042 0127 01       		.uleb128 0x1
+ 1043 0128 12       		.uleb128 0x12
+ 1044 0129 06       		.uleb128 0x6
+ 1045 012a 40       		.uleb128 0x40
+ 1046 012b 18       		.uleb128 0x18
+ 1047 012c 9742     		.uleb128 0x2117
+ 1048 012e 19       		.uleb128 0x19
+ 1049 012f 00       		.byte	0
+ 1050 0130 00       		.byte	0
+ 1051 0131 14       		.uleb128 0x14
+ 1052 0132 2E       		.uleb128 0x2e
+ 1053 0133 00       		.byte	0
+ 1054 0134 3F       		.uleb128 0x3f
+ 1055 0135 19       		.uleb128 0x19
+ 1056 0136 03       		.uleb128 0x3
+ 1057 0137 0E       		.uleb128 0xe
+ 1058 0138 3A       		.uleb128 0x3a
+ 1059 0139 0B       		.uleb128 0xb
+ 1060 013a 3B       		.uleb128 0x3b
+ 1061 013b 05       		.uleb128 0x5
+ 1062 013c 27       		.uleb128 0x27
+ 1063 013d 19       		.uleb128 0x19
+ 1064 013e 49       		.uleb128 0x49
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 27
+
+
+ 1065 013f 13       		.uleb128 0x13
+ 1066 0140 11       		.uleb128 0x11
+ 1067 0141 01       		.uleb128 0x1
+ 1068 0142 12       		.uleb128 0x12
+ 1069 0143 06       		.uleb128 0x6
+ 1070 0144 40       		.uleb128 0x40
+ 1071 0145 18       		.uleb128 0x18
+ 1072 0146 9742     		.uleb128 0x2117
+ 1073 0148 19       		.uleb128 0x19
+ 1074 0149 00       		.byte	0
+ 1075 014a 00       		.byte	0
+ 1076 014b 15       		.uleb128 0x15
+ 1077 014c 05       		.uleb128 0x5
+ 1078 014d 00       		.byte	0
+ 1079 014e 03       		.uleb128 0x3
+ 1080 014f 0E       		.uleb128 0xe
+ 1081 0150 3A       		.uleb128 0x3a
+ 1082 0151 0B       		.uleb128 0xb
+ 1083 0152 3B       		.uleb128 0x3b
+ 1084 0153 0B       		.uleb128 0xb
+ 1085 0154 49       		.uleb128 0x49
+ 1086 0155 13       		.uleb128 0x13
+ 1087 0156 02       		.uleb128 0x2
+ 1088 0157 17       		.uleb128 0x17
+ 1089 0158 00       		.byte	0
+ 1090 0159 00       		.byte	0
+ 1091 015a 16       		.uleb128 0x16
+ 1092 015b 2E       		.uleb128 0x2e
+ 1093 015c 00       		.byte	0
+ 1094 015d 3F       		.uleb128 0x3f
+ 1095 015e 19       		.uleb128 0x19
+ 1096 015f 3C       		.uleb128 0x3c
+ 1097 0160 19       		.uleb128 0x19
+ 1098 0161 6E       		.uleb128 0x6e
+ 1099 0162 0E       		.uleb128 0xe
+ 1100 0163 03       		.uleb128 0x3
+ 1101 0164 0E       		.uleb128 0xe
+ 1102 0165 3A       		.uleb128 0x3a
+ 1103 0166 0B       		.uleb128 0xb
+ 1104 0167 3B       		.uleb128 0x3b
+ 1105 0168 0B       		.uleb128 0xb
+ 1106 0169 00       		.byte	0
+ 1107 016a 00       		.byte	0
+ 1108 016b 00       		.byte	0
+ 1109              		.section	.debug_loc,"",%progbits
+ 1110              	.Ldebug_loc0:
+ 1111              	.LLST0:
+ 1112 0000 00000000 		.4byte	.LVL5
+ 1113 0004 02000000 		.4byte	.LVL6
+ 1114 0008 0100     		.2byte	0x1
+ 1115 000a 50       		.byte	0x50
+ 1116 000b 02000000 		.4byte	.LVL6
+ 1117 000f 10000000 		.4byte	.LFE6
+ 1118 0013 0400     		.2byte	0x4
+ 1119 0015 F3       		.byte	0xf3
+ 1120 0016 01       		.uleb128 0x1
+ 1121 0017 50       		.byte	0x50
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 28
+
+
+ 1122 0018 9F       		.byte	0x9f
+ 1123 0019 00000000 		.4byte	0
+ 1124 001d 00000000 		.4byte	0
+ 1125              	.LLST1:
+ 1126 0021 04000000 		.4byte	.LVL7
+ 1127 0025 06000000 		.4byte	.LVL8
+ 1128 0029 0500     		.2byte	0x5
+ 1129 002b 70       		.byte	0x70
+ 1130 002c 00       		.sleb128 0
+ 1131 002d 35       		.byte	0x35
+ 1132 002e 25       		.byte	0x25
+ 1133 002f 9F       		.byte	0x9f
+ 1134 0030 00000000 		.4byte	0
+ 1135 0034 00000000 		.4byte	0
+ 1136              	.LLST2:
+ 1137 0038 00000000 		.4byte	.LVL13
+ 1138 003c 07000000 		.4byte	.LVL14-1
+ 1139 0040 0100     		.2byte	0x1
+ 1140 0042 50       		.byte	0x50
+ 1141 0043 07000000 		.4byte	.LVL14-1
+ 1142 0047 1A000000 		.4byte	.LFE1
+ 1143 004b 0100     		.2byte	0x1
+ 1144 004d 54       		.byte	0x54
+ 1145 004e 00000000 		.4byte	0
+ 1146 0052 00000000 		.4byte	0
+ 1147              		.section	.debug_aranges,"",%progbits
+ 1148 0000 7C000000 		.4byte	0x7c
+ 1149 0004 0200     		.2byte	0x2
+ 1150 0006 00000000 		.4byte	.Ldebug_info0
+ 1151 000a 04       		.byte	0x4
+ 1152 000b 00       		.byte	0
+ 1153 000c 0000     		.2byte	0
+ 1154 000e 0000     		.2byte	0
+ 1155 0010 00000000 		.4byte	.LFB3
+ 1156 0014 0E000000 		.4byte	.LFE3-.LFB3
+ 1157 0018 00000000 		.4byte	.LFB4
+ 1158 001c 0C000000 		.4byte	.LFE4-.LFB4
+ 1159 0020 00000000 		.4byte	.LFB5
+ 1160 0024 0C000000 		.4byte	.LFE5-.LFB5
+ 1161 0028 00000000 		.4byte	.LFB6
+ 1162 002c 10000000 		.4byte	.LFE6-.LFB6
+ 1163 0030 00000000 		.4byte	.LFB7
+ 1164 0034 0C000000 		.4byte	.LFE7-.LFB7
+ 1165 0038 00000000 		.4byte	.LFB8
+ 1166 003c 0C000000 		.4byte	.LFE8-.LFB8
+ 1167 0040 00000000 		.4byte	.LFB9
+ 1168 0044 18000000 		.4byte	.LFE9-.LFB9
+ 1169 0048 00000000 		.4byte	.LFB10
+ 1170 004c 0C000000 		.4byte	.LFE10-.LFB10
+ 1171 0050 00000000 		.4byte	.LFB0
+ 1172 0054 1C000000 		.4byte	.LFE0-.LFB0
+ 1173 0058 00000000 		.4byte	.LFB1
+ 1174 005c 1A000000 		.4byte	.LFE1-.LFB1
+ 1175 0060 00000000 		.4byte	.LFB2
+ 1176 0064 14000000 		.4byte	.LFE2-.LFB2
+ 1177 0068 00000000 		.4byte	.LFB11
+ 1178 006c 0C000000 		.4byte	.LFE11-.LFB11
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 29
+
+
+ 1179 0070 00000000 		.4byte	.LFB12
+ 1180 0074 0C000000 		.4byte	.LFE12-.LFB12
+ 1181 0078 00000000 		.4byte	0
+ 1182 007c 00000000 		.4byte	0
+ 1183              		.section	.debug_ranges,"",%progbits
+ 1184              	.Ldebug_ranges0:
+ 1185 0000 00000000 		.4byte	.LFB3
+ 1186 0004 0E000000 		.4byte	.LFE3
+ 1187 0008 00000000 		.4byte	.LFB4
+ 1188 000c 0C000000 		.4byte	.LFE4
+ 1189 0010 00000000 		.4byte	.LFB5
+ 1190 0014 0C000000 		.4byte	.LFE5
+ 1191 0018 00000000 		.4byte	.LFB6
+ 1192 001c 10000000 		.4byte	.LFE6
+ 1193 0020 00000000 		.4byte	.LFB7
+ 1194 0024 0C000000 		.4byte	.LFE7
+ 1195 0028 00000000 		.4byte	.LFB8
+ 1196 002c 0C000000 		.4byte	.LFE8
+ 1197 0030 00000000 		.4byte	.LFB9
+ 1198 0034 18000000 		.4byte	.LFE9
+ 1199 0038 00000000 		.4byte	.LFB10
+ 1200 003c 0C000000 		.4byte	.LFE10
+ 1201 0040 00000000 		.4byte	.LFB0
+ 1202 0044 1C000000 		.4byte	.LFE0
+ 1203 0048 00000000 		.4byte	.LFB1
+ 1204 004c 1A000000 		.4byte	.LFE1
+ 1205 0050 00000000 		.4byte	.LFB2
+ 1206 0054 14000000 		.4byte	.LFE2
+ 1207 0058 00000000 		.4byte	.LFB11
+ 1208 005c 0C000000 		.4byte	.LFE11
+ 1209 0060 00000000 		.4byte	.LFB12
+ 1210 0064 0C000000 		.4byte	.LFE12
+ 1211 0068 00000000 		.4byte	0
+ 1212 006c 00000000 		.4byte	0
+ 1213              		.section	.debug_line,"",%progbits
+ 1214              	.Ldebug_line0:
+ 1215 0000 57010000 		.section	.debug_str,"MS",%progbits,1
+ 1215      02006900 
+ 1215      00000201 
+ 1215      FB0E0D00 
+ 1215      01010101 
+ 1216              	.LASF28:
+ 1217 0000 6973725F 		.ascii	"isr_start_forward_Disable\000"
+ 1217      73746172 
+ 1217      745F666F 
+ 1217      72776172 
+ 1217      645F4469 
+ 1218              	.LASF17:
+ 1219 001a 72656733 		.ascii	"reg32\000"
+ 1219      3200
+ 1220              	.LASF29:
+ 1221 0020 6973725F 		.ascii	"isr_start_forward_Start\000"
+ 1221      73746172 
+ 1221      745F666F 
+ 1221      72776172 
+ 1221      645F5374 
+ 1222              	.LASF35:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 30
+
+
+ 1223 0038 73746172 		.ascii	"start_motor_forward\000"
+ 1223      745F6D6F 
+ 1223      746F725F 
+ 1223      666F7277 
+ 1223      61726400 
+ 1224              	.LASF31:
+ 1225 004c 6973725F 		.ascii	"isr_start_forward_Stop\000"
+ 1225      73746172 
+ 1225      745F666F 
+ 1225      72776172 
+ 1225      645F5374 
+ 1226              	.LASF6:
+ 1227 0063 73686F72 		.ascii	"short unsigned int\000"
+ 1227      7420756E 
+ 1227      7369676E 
+ 1227      65642069 
+ 1227      6E7400
+ 1228              	.LASF14:
+ 1229 0076 666C6F61 		.ascii	"float\000"
+ 1229      7400
+ 1230              	.LASF4:
+ 1231 007c 756E7369 		.ascii	"unsigned char\000"
+ 1231      676E6564 
+ 1231      20636861 
+ 1231      7200
+ 1232              	.LASF36:
+ 1233 008a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1233      43313120 
+ 1233      352E342E 
+ 1233      31203230 
+ 1233      31363036 
+ 1234 00bd 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1234      20726576 
+ 1234      6973696F 
+ 1234      6E203233 
+ 1234      37373135 
+ 1235 00f0 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1235      66756E63 
+ 1235      74696F6E 
+ 1235      2D736563 
+ 1235      74696F6E 
+ 1236              	.LASF16:
+ 1237 0118 72656738 		.ascii	"reg8\000"
+ 1237      00
+ 1238              	.LASF23:
+ 1239 011d 61646472 		.ascii	"address\000"
+ 1239      65737300 
+ 1240              	.LASF8:
+ 1241 0125 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1241      20756E73 
+ 1241      69676E65 
+ 1241      6420696E 
+ 1241      7400
+ 1242              	.LASF12:
+ 1243 0137 75696E74 		.ascii	"uint8\000"
+ 1243      3800
+ 1244              	.LASF24:
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 31
+
+
+ 1245 013d 7072696F 		.ascii	"priority\000"
+ 1245      72697479 
+ 1245      00
+ 1246              	.LASF15:
+ 1247 0146 646F7562 		.ascii	"double\000"
+ 1247      6C6500
+ 1248              	.LASF37:
+ 1249 014d 47656E65 		.ascii	"Generated_Source\\PSoC5\\isr_start_forward.c\000"
+ 1249      72617465 
+ 1249      645F536F 
+ 1249      75726365 
+ 1249      5C50536F 
+ 1250              	.LASF13:
+ 1251 0178 75696E74 		.ascii	"uint32\000"
+ 1251      333200
+ 1252              	.LASF0:
+ 1253 017f 756E7369 		.ascii	"unsigned int\000"
+ 1253      676E6564 
+ 1253      20696E74 
+ 1253      00
+ 1254              	.LASF27:
+ 1255 018c 6973725F 		.ascii	"isr_start_forward_Enable\000"
+ 1255      73746172 
+ 1255      745F666F 
+ 1255      72776172 
+ 1255      645F456E 
+ 1256              	.LASF9:
+ 1257 01a5 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1257      206C6F6E 
+ 1257      6720756E 
+ 1257      7369676E 
+ 1257      65642069 
+ 1258              	.LASF39:
+ 1259 01bc 6973725F 		.ascii	"isr_start_forward_GetState\000"
+ 1259      73746172 
+ 1259      745F666F 
+ 1259      72776172 
+ 1259      645F4765 
+ 1260              	.LASF26:
+ 1261 01d7 6973725F 		.ascii	"isr_start_forward_GetPriority\000"
+ 1261      73746172 
+ 1261      745F666F 
+ 1261      72776172 
+ 1261      645F4765 
+ 1262              	.LASF33:
+ 1263 01f5 6973725F 		.ascii	"isr_start_forward_ClearPending\000"
+ 1263      73746172 
+ 1263      745F666F 
+ 1263      72776172 
+ 1263      645F436C 
+ 1264              	.LASF18:
+ 1265 0214 63796973 		.ascii	"cyisraddress\000"
+ 1265      72616464 
+ 1265      72657373 
+ 1265      00
+ 1266              	.LASF10:
+ 1267 0221 73697A65 		.ascii	"sizetype\000"
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 32
+
+
+ 1267      74797065 
+ 1267      00
+ 1268              	.LASF1:
+ 1269 022a 6C6F6E67 		.ascii	"long long int\000"
+ 1269      206C6F6E 
+ 1269      6720696E 
+ 1269      7400
+ 1270              	.LASF38:
+ 1271 0238 433A5C55 		.ascii	"C:\\Users\\Jacob-Desktop\\Documents\\PSoC-Projects\\"
+ 1271      73657273 
+ 1271      5C4A6163 
+ 1271      6F622D44 
+ 1271      65736B74 
+ 1272 0267 4175746F 		.ascii	"Automatic-Door\\Automatic Door Workspace\\Automatic"
+ 1272      6D617469 
+ 1272      632D446F 
+ 1272      6F725C41 
+ 1272      75746F6D 
+ 1273 0298 20446F6F 		.ascii	" Door.cydsn\000"
+ 1273      722E6379 
+ 1273      64736E00 
+ 1274              	.LASF11:
+ 1275 02a4 63686172 		.ascii	"char\000"
+ 1275      00
+ 1276              	.LASF21:
+ 1277 02a9 72616D56 		.ascii	"ramVectorTable\000"
+ 1277      6563746F 
+ 1277      72546162 
+ 1277      6C6500
+ 1278              	.LASF32:
+ 1279 02b8 6973725F 		.ascii	"isr_start_forward_SetPending\000"
+ 1279      73746172 
+ 1279      745F666F 
+ 1279      72776172 
+ 1279      645F5365 
+ 1280              	.LASF5:
+ 1281 02d5 73686F72 		.ascii	"short int\000"
+ 1281      7420696E 
+ 1281      7400
+ 1282              	.LASF25:
+ 1283 02df 6973725F 		.ascii	"isr_start_forward_GetVector\000"
+ 1283      73746172 
+ 1283      745F666F 
+ 1283      72776172 
+ 1283      645F4765 
+ 1284              	.LASF30:
+ 1285 02fb 6973725F 		.ascii	"isr_start_forward_StartEx\000"
+ 1285      73746172 
+ 1285      745F666F 
+ 1285      72776172 
+ 1285      645F5374 
+ 1286              	.LASF19:
+ 1287 0315 6973725F 		.ascii	"isr_start_forward_Interrupt\000"
+ 1287      73746172 
+ 1287      745F666F 
+ 1287      72776172 
+ 1287      645F496E 
+ARM GAS  C:\Users\JACOB-~1\AppData\Local\Temp\ccCBaN4U.s 			page 33
+
+
+ 1288              	.LASF7:
+ 1289 0331 6C6F6E67 		.ascii	"long int\000"
+ 1289      20696E74 
+ 1289      00
+ 1290              	.LASF2:
+ 1291 033a 6C6F6E67 		.ascii	"long double\000"
+ 1291      20646F75 
+ 1291      626C6500 
+ 1292              	.LASF22:
+ 1293 0346 6973725F 		.ascii	"isr_start_forward_SetPriority\000"
+ 1293      73746172 
+ 1293      745F666F 
+ 1293      72776172 
+ 1293      645F5365 
+ 1294              	.LASF3:
+ 1295 0364 7369676E 		.ascii	"signed char\000"
+ 1295      65642063 
+ 1295      68617200 
+ 1296              	.LASF34:
+ 1297 0370 43794465 		.ascii	"CyDelay\000"
+ 1297      6C617900 
+ 1298              	.LASF20:
+ 1299 0378 6973725F 		.ascii	"isr_start_forward_SetVector\000"
+ 1299      73746172 
+ 1299      745F666F 
+ 1299      72776172 
+ 1299      645F5365 
+ 1300              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

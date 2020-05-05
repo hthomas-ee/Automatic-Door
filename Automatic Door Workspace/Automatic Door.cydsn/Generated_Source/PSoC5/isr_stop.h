@@ -18,7 +18,6 @@
 
 #include <cytypes.h>
 #include <cyfitter.h>
-#include <global.h>
 
 /* Interrupt Controller API. */
 void isr_stop_Start(void);

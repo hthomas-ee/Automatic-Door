@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: Pin_Stepper_Motor.c  
+* File Name: Pin_Start_Backward.c  
 * Version 2.20
 *
 * Description:
@@ -15,15 +15,15 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "Pin_Stepper_Motor.h"
+#include "Pin_Start_Backward.h"
 
 /* APIs are not generated for P15[7:6] on PSoC 5 */
 #if !(CY_PSOC5A &&\
-	 Pin_Stepper_Motor__PORT == 15 && ((Pin_Stepper_Motor__MASK & 0xC0) != 0))
+	 Pin_Start_Backward__PORT == 15 && ((Pin_Start_Backward__MASK & 0xC0) != 0))
 
 
 /*******************************************************************************
-* Function Name: Pin_Stepper_Motor_Write
+* Function Name: Pin_Start_Backward_Write
 ****************************************************************************//**
 *
 * \brief Writes the value to the physical port (data output register), masking
@@ -52,17 +52,17 @@
 *  this function.
 *
 * \funcusage
-*  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_Write
+*  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_Write
 *******************************************************************************/
-void Pin_Stepper_Motor_Write(uint8 value)
+void Pin_Start_Backward_Write(uint8 value)
 {
-    uint8 staticBits = (Pin_Stepper_Motor_DR & (uint8)(~Pin_Stepper_Motor_MASK));
-    Pin_Stepper_Motor_DR = staticBits | ((uint8)(value << Pin_Stepper_Motor_SHIFT) & Pin_Stepper_Motor_MASK);
+    uint8 staticBits = (Pin_Start_Backward_DR & (uint8)(~Pin_Start_Backward_MASK));
+    Pin_Start_Backward_DR = staticBits | ((uint8)(value << Pin_Start_Backward_SHIFT) & Pin_Start_Backward_MASK);
 }
 
 
 /*******************************************************************************
-* Function Name: Pin_Stepper_Motor_SetDriveMode
+* Function Name: Pin_Start_Backward_SetDriveMode
 ****************************************************************************//**
 *
 * \brief Sets the drive mode for each of the Pins component's pins.
@@ -85,19 +85,16 @@ void Pin_Stepper_Motor_Write(uint8 value)
 *  APIs (primary method) or disable interrupts around this function.
 *
 * \funcusage
-*  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_SetDriveMode
+*  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_SetDriveMode
 *******************************************************************************/
-void Pin_Stepper_Motor_SetDriveMode(uint8 mode)
+void Pin_Start_Backward_SetDriveMode(uint8 mode)
 {
-	CyPins_SetPinDriveMode(Pin_Stepper_Motor_0, mode);
-	CyPins_SetPinDriveMode(Pin_Stepper_Motor_1, mode);
-	CyPins_SetPinDriveMode(Pin_Stepper_Motor_2, mode);
-	CyPins_SetPinDriveMode(Pin_Stepper_Motor_3, mode);
+	CyPins_SetPinDriveMode(Pin_Start_Backward_0, mode);
 }
 
 
 /*******************************************************************************
-* Function Name: Pin_Stepper_Motor_Read
+* Function Name: Pin_Start_Backward_Read
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port (pin status register) and masks 
@@ -111,16 +108,16 @@ void Pin_Stepper_Motor_SetDriveMode(uint8 mode)
 *  The current value for the pins in the component as a right justified number.
 *
 * \funcusage
-*  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_Read  
+*  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_Read  
 *******************************************************************************/
-uint8 Pin_Stepper_Motor_Read(void)
+uint8 Pin_Start_Backward_Read(void)
 {
-    return (Pin_Stepper_Motor_PS & Pin_Stepper_Motor_MASK) >> Pin_Stepper_Motor_SHIFT;
+    return (Pin_Start_Backward_PS & Pin_Start_Backward_MASK) >> Pin_Start_Backward_SHIFT;
 }
 
 
 /*******************************************************************************
-* Function Name: Pin_Stepper_Motor_ReadDataReg
+* Function Name: Pin_Start_Backward_ReadDataReg
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port's data output register and masks 
@@ -129,8 +126,8 @@ uint8 Pin_Stepper_Motor_Read(void)
 *
 * The data output register controls the signal applied to the physical pin in 
 * conjunction with the drive mode parameter. This is not the same as the 
-* preferred Pin_Stepper_Motor_Read() API because the 
-* Pin_Stepper_Motor_ReadDataReg() reads the data register instead of the status 
+* preferred Pin_Start_Backward_Read() API because the 
+* Pin_Start_Backward_ReadDataReg() reads the data register instead of the status 
 * register. For output pins this is a useful function to determine the value 
 * just written to the pin.
 *
@@ -139,19 +136,19 @@ uint8 Pin_Stepper_Motor_Read(void)
 *  justified number for the component instance.
 *
 * \funcusage
-*  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_ReadDataReg 
+*  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_ReadDataReg 
 *******************************************************************************/
-uint8 Pin_Stepper_Motor_ReadDataReg(void)
+uint8 Pin_Start_Backward_ReadDataReg(void)
 {
-    return (Pin_Stepper_Motor_DR & Pin_Stepper_Motor_MASK) >> Pin_Stepper_Motor_SHIFT;
+    return (Pin_Start_Backward_DR & Pin_Start_Backward_MASK) >> Pin_Start_Backward_SHIFT;
 }
 
 
 /* If interrupt is connected for this Pins component */ 
-#if defined(Pin_Stepper_Motor_INTSTAT) 
+#if defined(Pin_Start_Backward_INTSTAT) 
 
     /*******************************************************************************
-    * Function Name: Pin_Stepper_Motor_SetInterruptMode
+    * Function Name: Pin_Start_Backward_SetInterruptMode
     ****************************************************************************//**
     *
     * \brief Configures the interrupt mode for each of the Pins component's
@@ -164,12 +161,12 @@ uint8 Pin_Stepper_Motor_ReadDataReg(void)
     * \param position
     *  The pin position as listed in the Pins component. You may OR these to be 
     *  able to configure the interrupt mode of multiple pins within a Pins 
-    *  component. Or you may use Pin_Stepper_Motor_INTR_ALL to configure the
+    *  component. Or you may use Pin_Start_Backward_INTR_ALL to configure the
     *  interrupt mode of all the pins in the Pins component.       
-    *  - Pin_Stepper_Motor_0_INTR       (First pin in the list)
-    *  - Pin_Stepper_Motor_1_INTR       (Second pin in the list)
+    *  - Pin_Start_Backward_0_INTR       (First pin in the list)
+    *  - Pin_Start_Backward_1_INTR       (Second pin in the list)
     *  - ...
-    *  - Pin_Stepper_Motor_INTR_ALL     (All pins in Pins component)
+    *  - Pin_Start_Backward_INTR_ALL     (All pins in Pins component)
     *
     * \param mode
     *  Interrupt mode for the selected pins. Valid options are documented in
@@ -185,31 +182,19 @@ uint8 Pin_Stepper_Motor_ReadDataReg(void)
     *  port.
     *
     * \funcusage
-    *  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_SetInterruptMode
+    *  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_SetInterruptMode
     *******************************************************************************/
-    void Pin_Stepper_Motor_SetInterruptMode(uint16 position, uint16 mode)
+    void Pin_Start_Backward_SetInterruptMode(uint16 position, uint16 mode)
     {
-		if((position & Pin_Stepper_Motor_0_INTR) != 0u) 
+		if((position & Pin_Start_Backward_0_INTR) != 0u) 
 		{ 
-			 Pin_Stepper_Motor_0_INTTYPE_REG = (uint8)mode; 
-		} 
-		if((position & Pin_Stepper_Motor_1_INTR) != 0u) 
-		{ 
-			 Pin_Stepper_Motor_1_INTTYPE_REG = (uint8)mode; 
-		} 
-		if((position & Pin_Stepper_Motor_2_INTR) != 0u) 
-		{ 
-			 Pin_Stepper_Motor_2_INTTYPE_REG = (uint8)mode; 
-		} 
-		if((position & Pin_Stepper_Motor_3_INTR) != 0u) 
-		{ 
-			 Pin_Stepper_Motor_3_INTTYPE_REG = (uint8)mode; 
+			 Pin_Start_Backward_0_INTTYPE_REG = (uint8)mode; 
 		}
     }
     
     
     /*******************************************************************************
-    * Function Name: Pin_Stepper_Motor_ClearInterrupt
+    * Function Name: Pin_Start_Backward_ClearInterrupt
     ****************************************************************************//**
     *
     * \brief Clears any active interrupts attached with the component and returns 
@@ -226,11 +211,11 @@ uint8 Pin_Stepper_Motor_ReadDataReg(void)
     *  those associated with the Pins component.
     *
     * \funcusage
-    *  \snippet Pin_Stepper_Motor_SUT.c usage_Pin_Stepper_Motor_ClearInterrupt
+    *  \snippet Pin_Start_Backward_SUT.c usage_Pin_Start_Backward_ClearInterrupt
     *******************************************************************************/
-    uint8 Pin_Stepper_Motor_ClearInterrupt(void)
+    uint8 Pin_Start_Backward_ClearInterrupt(void)
     {
-        return (Pin_Stepper_Motor_INTSTAT & Pin_Stepper_Motor_MASK) >> Pin_Stepper_Motor_SHIFT;
+        return (Pin_Start_Backward_INTSTAT & Pin_Start_Backward_MASK) >> Pin_Start_Backward_SHIFT;
     }
 
 #endif /* If Interrupts Are Enabled for this Pins component */ 
